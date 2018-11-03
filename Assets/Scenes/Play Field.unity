@@ -807,6 +807,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1975570812265760, guid: ebcdc5f12bf9aea4bb7dac3d4136a2e3,
     type: 2}
   player: {fileID: 1520034203}
+  timeText: {fileID: 1129103742}
 --- !u!4 &2047909302
 Transform:
   m_ObjectHideFlags: 0
