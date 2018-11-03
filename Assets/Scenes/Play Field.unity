@@ -357,13 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad054179e86dca4b80ed263140905d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
   enemyPrefab: {fileID: 1975570812265760, guid: ebcdc5f12bf9aea4bb7dac3d4136a2e3,
     type: 2}
   player: {fileID: 1520034203}
-=======
-  enemyPrefab: {fileID: 0}
->>>>>>> ed0e8464f366807b806d43eb3003b389eef16dc9
 --- !u!4 &2047909302
 Transform:
   m_ObjectHideFlags: 0
