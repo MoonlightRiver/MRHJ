@@ -16,15 +16,12 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
-        Vector2 movement = new Vector2(horizontal, vertical);
-
-        rb2d.velocity = movement * speed;
+        Vector2 direction = new Vector2(horizontal, vertical);
+        rb2d.velocity = direction * speed;
 
         float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-
-        float angle = Mathf.Atan2(mouse.y - rb2d.position.y, mouse.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+        float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
         rb2d.rotation = angle;
     }
 
@@ -33,10 +30,10 @@ public class PlayerController : MonoBehaviour {
             GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
 
             float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-            Vector3 mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-            Vector2 direction = new Vector2(mouse.x - rb2d.position.x, mouse.y - rb2d.position.y);
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+            Vector2 mouseDirection = new Vector2(mousePosition.x - rb2d.position.x, mousePosition.y - rb2d.position.y);
 
-            projectile.GetComponent<ProjectileController>().Direction = direction;
+            projectile.GetComponent<ProjectileController>().Direction = mouseDirection;
         }
     }
 }

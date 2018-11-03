@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject player;
     public Text timeText;
+    public float enemySpawnRadiusFrom;
+    public float enemySpawnRadiusTo;
+    public float enemySpawnInterval;
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -21,21 +24,22 @@ public class GameManager : MonoBehaviour {
     
     void Update() {
         playerPosition = playerRb2d.position;
+
         secondsElapsed += Time.deltaTime;
         timeText.text = string.Format("{0:d2}:{1:d2}", (int)secondsElapsed / 60, (int)secondsElapsed % 60);
     }
 
     private IEnumerator SpawnEnemy() {
         while (true) {
-            float radius = Random.Range(2.5f, 5);
-            float angle = Random.Range(0, 360);
+            float radius = Random.Range(enemySpawnRadiusFrom, enemySpawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
             float x = radius * Mathf.Cos(angle);
             float y = radius * Mathf.Sin(angle);
-            Vector2 startPosition = playerPosition + new Vector2(x, y);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
 
-            Instantiate(enemyPrefab, startPosition, Quaternion.identity);
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(enemySpawnInterval);
         }
     }
 }
