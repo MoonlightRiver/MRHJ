@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-	void Start() {
+    void Start() {
         rb2d = GetComponent<Rigidbody2D>();
-	}
-	
-	void FixedUpdate() {
+    }
+    
+    void FixedUpdate() {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 

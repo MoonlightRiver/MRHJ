@@ -18,11 +18,11 @@ public class ProjectileController : MonoBehaviour {
         }
     }
 
-	void Start() {
+    void Start() {
         rb2d = GetComponent<Rigidbody2D>();
-	}
-	
-	void FixedUpdate() {
+    }
+    
+    void FixedUpdate() {
         rb2d.velocity = Direction * speed;
     }
 }

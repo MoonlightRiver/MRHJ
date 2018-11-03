@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour {
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
-	
-	void Start() {
+    
+    void Start() {
         playerRb2d = player.GetComponent<Rigidbody2D>();
         StartCoroutine(SpawnEnemy());
-	}
-	
-	void Update() {
+    }
+    
+    void Update() {
         playerPosition = playerRb2d.position;
     }
 
