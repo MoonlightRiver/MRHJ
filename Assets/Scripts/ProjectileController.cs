@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour {
-
+public class ProjectileController : MonoBehaviour
+{
     public float speed;
     public float damage;
     public float lifespan;
@@ -21,11 +21,12 @@ public class ProjectileController : MonoBehaviour {
         }
     }
 
-    void Start() {
+    void Start()
+    {
         rb2d = GetComponent<Rigidbody2D>();
         secondsElapsed = 0;
     }
-    
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Enemy")
@@ -34,13 +35,16 @@ public class ProjectileController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         rb2d.velocity = Direction * speed;
     }
 
-    void Update() {
+    void Update()
+    {
         secondsElapsed += Time.deltaTime;
-        if (secondsElapsed >= lifespan) {
+        if (secondsElapsed >= lifespan)
+        {
             Destroy(gameObject);
         }
     }

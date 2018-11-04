@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour {
-
+public class EnemyController : MonoBehaviour
+{
     public float health;
     public float speed;
     public float lifespan;
@@ -36,7 +36,8 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    void Update() {
+    void Update()
+    {
 
         enemyPosition = new Vector2(rb2d.position.x, rb2d.position.y);
         float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : MonoBehaviour
+{
     public float health;
     public float speed;
     public float shootElapsed;
@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-    void Start() {
+    void Start()
+    {
         shootElapsed = shootCoolDown;
         barrierCoolDown = MaxbarrierCoolDown;
         isJumping = false;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     void CheckGameOver()
     {
-        if(this.health <= 0)
+        if (this.health <= 0)
         {
             Debug.LogError("Game Over");
         }
@@ -35,7 +36,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (col.gameObject.tag == "Enemy")
         {
-            if (!isJumping) {
+            if (!isJumping)
+            {
                 this.health -= 20;
                 Debug.Log("피격. 남은 체력 : " + this.health);
             }
@@ -65,7 +67,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector2 direction = new Vector2(horizontal, vertical);
@@ -101,10 +104,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Update() {
+    void Update()
+    {
         shootElapsed += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0)) {
-            if(shootElapsed >= shootCoolDown)
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (shootElapsed >= shootCoolDown)
             {
                 shootElapsed = 0;
                 GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);

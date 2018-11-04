@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectileController : MonoBehaviour {
-
+public class EnemyProjectileController : MonoBehaviour
+{
     public float speed;
     public float lifespan;
 
@@ -11,14 +11,11 @@ public class EnemyProjectileController : MonoBehaviour {
     private float secondsElapsed;
 
     private Vector2 direction;
-    public Vector2 Direction
-    {
-        get
-        {
+    public Vector2 Direction {
+        get {
             return direction;
         }
-        set
-        {
+        set {
             direction = value.normalized;
         }
     }
