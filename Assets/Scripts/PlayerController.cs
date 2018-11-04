@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public float health;
     public float speed;
+    public float shootElapsed;
     public float shootCoolDown;
     public float MaxbarrierMaintain;
     public float barrierCoolDown;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
 
     void Start() {
+        shootElapsed = shootCoolDown;
         barrierCoolDown = MaxbarrierCoolDown;
         isJumping = false;
         rb2d = GetComponent<Rigidbody2D>();
@@ -100,14 +102,19 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        shootElapsed += Time.deltaTime;
         if (Input.GetMouseButtonDown(0)) {
-            GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
+            if(shootElapsed >= shootCoolDown)
+            {
+                shootElapsed = 0;
+                GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
 
-            float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-            Vector2 mouseDirection = new Vector2(mousePosition.x - rb2d.position.x, mousePosition.y - rb2d.position.y);
+                float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+                Vector2 mouseDirection = new Vector2(mousePosition.x - rb2d.position.x, mousePosition.y - rb2d.position.y);
 
-            projectile.GetComponent<ProjectileController>().Direction = mouseDirection;
+                projectile.GetComponent<ProjectileController>().Direction = mouseDirection;
+            }
         }
     }
 }
