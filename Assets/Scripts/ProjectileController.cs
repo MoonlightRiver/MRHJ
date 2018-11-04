@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour {
 
     public float speed;
+    public float damage;
     public float lifespan;
 
     private Rigidbody2D rb2d;
@@ -25,6 +26,14 @@ public class ProjectileController : MonoBehaviour {
         secondsElapsed = 0;
     }
     
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void FixedUpdate() {
         rb2d.velocity = Direction * speed;
     }

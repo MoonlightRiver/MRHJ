@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public float health;
     public float speed;
     public GameObject projectilePrefab;
 
@@ -12,7 +13,16 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
     }
-    
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            health -= 10;
+            Destroy(col.gameObject);
+        }
+    }
+
     void FixedUpdate() {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
