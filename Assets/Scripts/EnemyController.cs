@@ -7,12 +7,11 @@ public class EnemyController : MonoBehaviour
     public float health;
     public float speed;
     public float lifespan;
+    public GameObject enemyprojectilePrefab;
+
     private float secondsElapsed;
     private float secondsElapsed2;
     private float secondsElapsed3;
-    public GameObject enemyprojectilePrefab;
-    public GameObject player;
-
     private Rigidbody2D playerRb2d;
     private Rigidbody2D rb2d;
     private Vector2 direction;
@@ -21,7 +20,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        playerRb2d = player.GetComponent<Rigidbody2D>();
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
         rb2d = GetComponent<Rigidbody2D>();
         secondsElapsed = 0;
         secondsElapsed2 = 0;
@@ -38,12 +37,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-
         enemyPosition = new Vector2(rb2d.position.x, rb2d.position.y);
-        float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-        Vector3 playerLocation = Camera.main.ScreenToWorldPoint(new Vector3(playerRb2d.position.x, playerRb2d.position.y, cameraDistance));
-        //보정값 x+8.888889, y+5
-        playerPosition = new Vector2(playerLocation.x + 8.888889f, playerLocation.y + 5f);
+        playerPosition = new Vector2(playerRb2d.position.x, playerRb2d.position.y);
 
         secondsElapsed += Time.deltaTime;
         secondsElapsed2 += Time.deltaTime;
@@ -71,7 +66,6 @@ public class EnemyController : MonoBehaviour
             rb2d.rotation = angle;
         }
 
-        //현재 (0,0)으로만 발사됨. playerPosition이 작동하지 않고 있다.
         if (secondsElapsed3 >= 0.8)
         {
             secondsElapsed3 = 0;
