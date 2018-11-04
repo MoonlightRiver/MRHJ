@@ -37,8 +37,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        enemyPosition = new Vector2(rb2d.position.x, rb2d.position.y);
-        playerPosition = new Vector2(playerRb2d.position.x, playerRb2d.position.y);
+        enemyPosition = rb2d.position;
+        playerPosition = playerRb2d.position;
 
         secondsElapsed += Time.deltaTime;
         secondsElapsed2 += Time.deltaTime;
@@ -71,7 +71,7 @@ public class EnemyController : MonoBehaviour
             secondsElapsed3 = 0;
             GameObject enemyprojectile = Instantiate(enemyprojectilePrefab, rb2d.position, Quaternion.identity);
 
-            Vector2 shootDirection = new Vector2(playerPosition.x - enemyPosition.x, playerPosition.y - enemyPosition.y);
+            Vector2 shootDirection = playerPosition - enemyPosition;
 
             enemyprojectile.GetComponent<EnemyProjectileController>().Direction = shootDirection;
         }

@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour
                 GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
 
                 float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-                Vector2 mouseDirection = new Vector2(mousePosition.x - rb2d.position.x, mousePosition.y - rb2d.position.y);
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+                Vector2 mouseDirection = mousePosition - rb2d.position;
 
                 projectile.GetComponent<ProjectileController>().Direction = mouseDirection;
             }
