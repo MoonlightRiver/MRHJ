@@ -76,9 +76,6 @@ public class EnemyController : MonoBehaviour {
             secondsElapsed3 = 0;
             GameObject enemyprojectile = Instantiate(enemyprojectilePrefab, rb2d.position, Quaternion.identity);
 
-            Debug.Log("Enemy : " + enemyPosition.x + ", " + enemyPosition.y);
-            Debug.Log("Player : " + playerPosition.x + ", " + playerPosition.y);
-
             Vector2 shootDirection = new Vector2(playerPosition.x - enemyPosition.x, playerPosition.y - enemyPosition.y);
 
             enemyprojectile.GetComponent<EnemyProjectileController>().Direction = shootDirection;
