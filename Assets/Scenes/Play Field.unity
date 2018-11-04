@@ -949,6 +949,7 @@ MonoBehaviour:
     type: 2}
   player: {fileID: 1520034203}
   timeText: {fileID: 1129103742}
+  scoreText: {fileID: 41205461}
   enemySpawnRadiusFrom: 2.5
   enemySpawnRadiusTo: 5
   enemySpawnInterval: 2
