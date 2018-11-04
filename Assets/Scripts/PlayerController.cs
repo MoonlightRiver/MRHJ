@@ -14,12 +14,32 @@ public class PlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    void CheckGameOver()
+    {
+        if(this.health <= 0)
+        {
+            Debug.LogError("Game Over");
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Enemy")
         {
-            health -= 10;
+            health -= 20;
+            Debug.Log("피격. 남은 체력 : " + this.health);
+            CheckGameOver();
             Destroy(col.gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "EnemyProjectile")
+        {
+            this.health -= 25;
+            Debug.Log("피격. 남은 체력 : " + this.health);
+            CheckGameOver();
         }
     }
 

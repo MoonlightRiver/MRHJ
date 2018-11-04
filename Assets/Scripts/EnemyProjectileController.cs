@@ -29,6 +29,14 @@ public class EnemyProjectileController : MonoBehaviour {
         secondsElapsed = 0;
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void FixedUpdate()
     {
         rb2d.velocity = Direction * speed;

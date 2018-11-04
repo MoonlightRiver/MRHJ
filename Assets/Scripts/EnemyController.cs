@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     private float secondsElapsed;
     private float secondsElapsed2;
     private float secondsElapsed3;
-    public GameObject projectilePrefab;
+    public GameObject enemyprojectilePrefab;
     public GameObject player;
 
     private Rigidbody2D playerRb2d;
@@ -36,11 +36,13 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-
     void Update() {
 
         enemyPosition = new Vector2(rb2d.position.x, rb2d.position.y);
-        playerPosition = new Vector2(playerRb2d.position.x, playerRb2d.position.y);
+        float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
+        Vector3 playerLocation = Camera.main.ScreenToWorldPoint(new Vector3(playerRb2d.position.x, playerRb2d.position.y, cameraDistance));
+        //보정값 x+8.888889, y+5
+        playerPosition = new Vector2(playerLocation.x + 8.888889f, playerLocation.y + 5f);
 
         secondsElapsed += Time.deltaTime;
         secondsElapsed2 += Time.deltaTime;
@@ -69,10 +71,10 @@ public class EnemyController : MonoBehaviour {
         }
 
         //현재 (0,0)으로만 발사됨. playerPosition이 작동하지 않고 있다.
-        if (secondsElapsed3 >= 0.2)
+        if (secondsElapsed3 >= 0.8)
         {
             secondsElapsed3 = 0;
-            GameObject enemyprojectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
+            GameObject enemyprojectile = Instantiate(enemyprojectilePrefab, rb2d.position, Quaternion.identity);
 
             Debug.Log("Enemy : " + enemyPosition.x + ", " + enemyPosition.y);
             Debug.Log("Player : " + playerPosition.x + ", " + playerPosition.y);
