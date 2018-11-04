@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public float lifespan;
     public GameObject enemyprojectilePrefab;
+    //public Text scoreText;
 
     private float secondsElapsed;
     private float secondsElapsed2;
@@ -79,6 +81,8 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(this.gameObject);
+            //int currentScore = int.Parse(scoreText.text.Replace(",", ""));
+            //scoreText.text = string.Format("{0:#,###}", currentScore + 100);
         }
     }
 }

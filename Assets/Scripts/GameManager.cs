@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyPrefab;
     public GameObject player;
     public Text timeText;
+    public Text scoreText;
     public float enemySpawnRadiusFrom;
     public float enemySpawnRadiusTo;
     public float enemySpawnInterval;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
         secondsElapsed += Time.deltaTime;
         timeText.text = string.Format("{0:d2}:{1:d2}", (int)secondsElapsed / 60, (int)secondsElapsed % 60);
+        scoreText.text = string.Format("{0:#,###}", (int)secondsElapsed * 500); //점수는 줄일 예정. format 확인을 위해 크게 설정함.
     }
 
     private IEnumerator SpawnEnemy()

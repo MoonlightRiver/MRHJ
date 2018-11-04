@@ -91,11 +91,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 3.3333333
+  shootElapsed: 0.5
   shootCoolDown: 0.5
-  barrierMaintain: 1
   MaxbarrierMaintain: 1
-  barrierCoolDown: 20
-  MaxbarrierCoolDown: 20
+  barrierCoolDown: 21
+  MaxbarrierCoolDown: 21
   isJumping: 0
   projectilePrefab: {fileID: 1669741716146714, guid: 306b39e3de5f76d4b909688e26494e2b,
     type: 2}
