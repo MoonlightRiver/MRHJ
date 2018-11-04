@@ -42,4 +42,20 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(enemySpawnInterval);
         }
     }
+
+    private IEnumerator DeleteEnemy()
+    {
+        while (true)
+        {
+            float radius = Random.Range(enemySpawnRadiusFrom, enemySpawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(enemySpawnInterval);
+        }
+    }
 }
