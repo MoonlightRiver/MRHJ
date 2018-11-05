@@ -16,12 +16,23 @@ public class GameManager : MonoBehaviour
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
     private float secondsElapsed;
+    private int score;
+    public int Score {
+        get {
+            return score;
+        }
+        set {
+            score = value;
+            scoreText.text = string.Format("{0:n0}", score);
+        }
+    }
 
     void Start()
     {
         playerRb2d = player.GetComponent<Rigidbody2D>();
         StartCoroutine(SpawnEnemy());
         secondsElapsed = 0;
+        Score = 0;
     }
 
     void Update()
@@ -30,7 +41,6 @@ public class GameManager : MonoBehaviour
 
         secondsElapsed += Time.deltaTime;
         timeText.text = string.Format("{0:d2}:{1:d2}", (int)secondsElapsed / 60, (int)secondsElapsed % 60);
-        scoreText.text = string.Format("{0:#,###}", (int)secondsElapsed * 500); //점수는 줄일 예정. format 확인을 위해 크게 설정함.
     }
 
     private IEnumerator SpawnEnemy()
