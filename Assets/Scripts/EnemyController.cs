@@ -9,19 +9,20 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public float lifespan;
     public GameObject enemyprojectilePrefab;
-    //public Text scoreText;
 
+    private GameObject gameManager;
+    private Rigidbody2D playerRb2d;
+    private Rigidbody2D rb2d;
     private float secondsElapsed;
     private float secondsElapsed2;
     private float secondsElapsed3;
-    private Rigidbody2D playerRb2d;
-    private Rigidbody2D rb2d;
     private Vector2 direction;
     private Vector2 enemyPosition;
     private Vector2 playerPosition;
 
     void Start()
     {
+        gameManager = GameObject.FindWithTag("GameController");
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
         rb2d = GetComponent<Rigidbody2D>();
         secondsElapsed = 0;
@@ -33,7 +34,7 @@ public class EnemyController : MonoBehaviour
     {
         if (col.gameObject.tag == "Projectile")
         {
-            this.health -= 60;
+            health -= 60;
         }
     }
 
@@ -80,9 +81,8 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(this.gameObject);
-            //int currentScore = int.Parse(scoreText.text.Replace(",", ""));
-            //scoreText.text = string.Format("{0:#,###}", currentScore + 100);
+            Destroy(gameObject);
+            gameManager.GetComponent<GameManager>().Score += 100;
         }
     }
 }
