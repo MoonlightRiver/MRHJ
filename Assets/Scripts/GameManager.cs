@@ -6,25 +6,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject foodPrefab;
     public GameObject player;
     public Text timeText;
     public Text scoreText;
     public float enemySpawnRadiusFrom;
     public float enemySpawnRadiusTo;
     public float enemySpawnInterval;
-    public float foodSpawnRadiusFrom;
-    public float foodSpawnRadiusTo;
-    public float foodSpawnInterval;
 
-    private GameObject gameManager;
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
     private float secondsElapsed;
-    private float secondCheck;
-    private float min2Check;
     private int score;
-    private int timeScore;
     public int Score {
         get {
             return score;
@@ -37,35 +29,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.FindWithTag("GameController");
         playerRb2d = player.GetComponent<Rigidbody2D>();
         StartCoroutine(SpawnEnemy());
-        StartCoroutine(SpawnFood());
         secondsElapsed = 0;
-        secondCheck = 0;
-        min2Check = 0;
         Score = 0;
-        timeScore = 1;
     }
-    
+
     void Update()
     {
         playerPosition = playerRb2d.position;
 
         secondsElapsed += Time.deltaTime;
-        secondCheck += Time.deltaTime;
-        min2Check += Time.deltaTime;
         timeText.text = string.Format("{0:d2}:{1:d2}", (int)secondsElapsed / 60, (int)secondsElapsed % 60);
-        if (secondCheck >= 6)
-        {
-            secondCheck = 0;
-            if(min2Check >= 120)
-            {
-                min2Check = 0;
-                timeScore += 1;
-            }
-            gameManager.GetComponent<GameManager>().Score += timeScore;
-        }
     }
 
     private IEnumerator SpawnEnemy()
@@ -97,38 +72,6 @@ public class GameManager : MonoBehaviour
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(enemySpawnInterval);
-        }
-    }
-
-    private IEnumerator SpawnFood()
-    {
-        while (true)
-        {
-            float radius = Random.Range(foodSpawnRadiusFrom, foodSpawnRadiusTo);
-            float angle = Random.Range(0f, 360f);
-            float x = radius * Mathf.Cos(angle);
-            float y = radius * Mathf.Sin(angle);
-            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
-
-            Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
-
-            yield return new WaitForSeconds(foodSpawnInterval);
-        }
-    }
-
-    private IEnumerator DeleteFood()
-    {
-        while (true)
-        {
-            float radius = Random.Range(foodSpawnRadiusFrom, foodSpawnRadiusTo);
-            float angle = Random.Range(0f, 360f);
-            float x = radius * Mathf.Cos(angle);
-            float y = radius * Mathf.Sin(angle);
-            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
-
-            Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
-
-            yield return new WaitForSeconds(foodSpawnInterval);
         }
     }
 }

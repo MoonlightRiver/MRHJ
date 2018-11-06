@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 9
   damage: 60
-  lifespan: 5
+  lifespan: 1
 --- !u!212 &212420300554778326
 SpriteRenderer:
   m_ObjectHideFlags: 1
