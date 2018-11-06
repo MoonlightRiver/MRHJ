@@ -55,13 +55,11 @@ public class EnemyController : MonoBehaviour
         if (secondsElapsed2 >= 0.5)
         {
             secondsElapsed2 = 0;
-            float horizontal = Random.Range(-1, 1);
-            float vertical = Random.Range(-1, 1);
+            float horizontal = Random.Range(-1f, 1f);
+            float vertical = Random.Range(-1f, 1f);
 
             Vector2 value = new Vector2(horizontal, vertical);
             direction = value.normalized;
-            if (horizontal < 0) direction.x = -direction.x;
-            if (vertical < 0) direction.y = -direction.y;
 
             rb2d.velocity = direction * speed;
 
