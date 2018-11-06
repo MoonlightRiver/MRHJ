@@ -246,6 +246,27 @@ Prefab:
       propertyPath: m_TagString
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 114151363253937174, guid: 42a9c73227eee7a4888a7f7d97d631b9,
+        type: 2}
+      propertyPath: foodPrefab
+      value: 
+      objectReference: {fileID: 1661117904931076, guid: eb81503fb546a1e43b1074d71ce8d384,
+        type: 2}
+    - target: {fileID: 114151363253937174, guid: 42a9c73227eee7a4888a7f7d97d631b9,
+        type: 2}
+      propertyPath: foodSpawnInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114151363253937174, guid: 42a9c73227eee7a4888a7f7d97d631b9,
+        type: 2}
+      propertyPath: foodSpawnRadiusFrom
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114151363253937174, guid: 42a9c73227eee7a4888a7f7d97d631b9,
+        type: 2}
+      propertyPath: foodSpawnRadiusTo
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a9c73227eee7a4888a7f7d97d631b9, type: 2}
   m_IsPrefabAsset: 0
@@ -1010,12 +1031,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1975570812265760, guid: ebcdc5f12bf9aea4bb7dac3d4136a2e3,
     type: 2}
+  foodPrefab: {fileID: 1661117904931076, guid: eb81503fb546a1e43b1074d71ce8d384, type: 2}
   player: {fileID: 1520034203}
   timeText: {fileID: 1129103742}
   scoreText: {fileID: 41205461}
   enemySpawnRadiusFrom: 2.5
   enemySpawnRadiusTo: 5
   enemySpawnInterval: 2
+  foodSpawnRadiusFrom: 5
+  foodSpawnRadiusTo: 10
+  foodSpawnInterval: 5
 --- !u!4 &2047909302
 Transform:
   m_ObjectHideFlags: 0

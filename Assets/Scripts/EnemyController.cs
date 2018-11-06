@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            gameManager.GetComponent<GameManager>().Score += 100;
+            gameManager.GetComponent<GameManager>().Score += 100; // 추후 점수 삭제, 아이템 지급으로 대체 예정.
         }
     }
 }
