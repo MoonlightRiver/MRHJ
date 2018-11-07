@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private GameObject gameManager;
     public GameObject enemyPrefab;
     public GameObject foodPrefab;
     public GameObject player;
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
     private float secondsElapsed;
+    private float checkRage;
+    private float giveTimeScore;
+    private int timeScore;
     private int score;
     public int Score {
         get {
@@ -33,10 +37,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.FindWithTag("GameController");
         playerRb2d = player.GetComponent<Rigidbody2D>();
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnFood());
         secondsElapsed = 0;
+        checkRage = 0;
+        giveTimeScore = 0;
+        timeScore = 1;
         Score = 0;
     }
 
@@ -45,7 +53,21 @@ public class GameManager : MonoBehaviour
         playerPosition = playerRb2d.position;
 
         secondsElapsed += Time.deltaTime;
+        checkRage += Time.deltaTime;
+        giveTimeScore += Time.deltaTime;
         timeText.text = string.Format("{0:d2}:{1:d2}", (int)secondsElapsed / 60, (int)secondsElapsed % 60);
+
+        if(checkRage >= 120)
+        {
+            checkRage = 0;
+            timeScore += 1;
+        }
+
+        if(giveTimeScore >= 6)
+        {
+            giveTimeScore = 0;
+            gameManager.GetComponent<GameManager>().Score += timeScore;
+        }
     }
 
     private IEnumerator SpawnEnemy()
