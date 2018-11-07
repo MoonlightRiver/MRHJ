@@ -6,12 +6,16 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject foodPrefab;
     public GameObject player;
     public Text timeText;
     public Text scoreText;
     public float enemySpawnRadiusFrom;
     public float enemySpawnRadiusTo;
     public float enemySpawnInterval;
+    public float foodSpawnRadiusFrom;
+    public float foodSpawnRadiusTo;
+    public float foodSpawnInterval;
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         playerRb2d = player.GetComponent<Rigidbody2D>();
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnFood());
         secondsElapsed = 0;
         Score = 0;
     }
@@ -72,6 +77,38 @@ public class GameManager : MonoBehaviour
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(enemySpawnInterval);
+        }
+    }
+
+    private IEnumerator SpawnFood()
+    {
+        while (true)
+        {
+            float radius = Random.Range(foodSpawnRadiusFrom, foodSpawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(foodSpawnInterval);
+        }
+    }
+
+    private IEnumerator DeleteFood()
+    {
+        while (true)
+        {
+            float radius = Random.Range(foodSpawnRadiusFrom, foodSpawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(foodSpawnInterval);
         }
     }
 }
