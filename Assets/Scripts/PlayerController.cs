@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : BaseEntityController
 {
     public GameObject projectilePrefab;
+    public Text jumpingText;
     public float jumpMaintain;
     public float jumpCooldown;
     public float projectileLifetime;
@@ -12,6 +14,15 @@ public class PlayerController : BaseEntityController
 
     private float jumpElapsed;
     private bool isJumping;
+    public bool IsJumping {
+        get {
+            return isJumping;
+        }
+        set {
+            isJumping = value;
+            jumpingText.text = isJumping ? "Jumping" : string.Format("Cooldown: {0:f1}", Mathf.Max(jumpCooldown - jumpElapsed, 0f));
+        }
+    }
     private float shootElapsed;
 
     new void Start()
@@ -19,7 +30,7 @@ public class PlayerController : BaseEntityController
         base.Start();
 
         jumpElapsed = jumpCooldown;
-        isJumping = false;
+        IsJumping = false;
 
         shootElapsed = shootCooldown;
     }
@@ -54,22 +65,17 @@ public class PlayerController : BaseEntityController
         {
             if (jumpElapsed >= jumpCooldown) //Initial : 무적 1초 / 종료 후 쿨타임 시작 / 쿨 20초
             {
-                Debug.Log("무적 사용.");
                 jumpElapsed = 0;
-            }
-            else
-            {
-                Debug.Log("Cooltime. Remain : " + (jumpCooldown - jumpElapsed));
             }
         }
 
         if (jumpElapsed <= jumpMaintain)
         {
-            isJumping = true;
+            IsJumping = true;
         }
         else
         {
-            isJumping = false;
+            IsJumping = false;
         }
     }
 
@@ -99,7 +105,7 @@ public class PlayerController : BaseEntityController
     {
         if (col.gameObject.tag == "Enemy")
         {
-            if (!isJumping)
+            if (!IsJumping)
             {
                 Health -= 20;
             }
@@ -116,7 +122,7 @@ public class PlayerController : BaseEntityController
     {
         if (col.gameObject.tag == "Enemy Projectile")
         {
-            if (!isJumping)
+            if (!IsJumping)
             {
                 Health -= 25;
             }
