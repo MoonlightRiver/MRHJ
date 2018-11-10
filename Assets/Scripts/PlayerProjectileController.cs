@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectileController : BaseProjectileController
+public class PlayerProjectileController : BaseProjectileController
 {
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
         }

@@ -56,7 +56,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -89,12 +89,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16069017661b3ac47b821ed7e4b6446e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 4.5
-  lifespan: 10
-  enemyprojectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
+  enemyProjectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
-  player: {fileID: 1371827783373738, guid: 0131a0fa9c8da5a4da67c480f6b668a4, type: 2}
+  startHealth: 100
+  speed: 4.5
+  despawnRadius: 10
+  moveInterval: 0.5
+  shootPlayerInterval: 0.8
+  projectileLifetime: 2
 --- !u!212 &212556462674794634
 SpriteRenderer:
   m_ObjectHideFlags: 1

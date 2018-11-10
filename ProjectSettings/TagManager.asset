@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Projectile
-  - EnemyProjectile
   - Food
+  - Player Projectile
+  - Enemy Projectile
   layers:
   - Default
   - TransparentFX

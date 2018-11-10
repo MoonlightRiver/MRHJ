@@ -1,86 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    public float health;
+    public GameObject enemyProjectilePrefab;
+    public int startHealth;
     public float speed;
-    public float lifespan;
-    public GameObject enemyprojectilePrefab;
+    public float despawnRadius;
+    public float moveInterval;
+    public float shootPlayerInterval;
+    public float projectileLifetime;
 
-    private GameObject gameManager;
-    private Rigidbody2D playerRb2d;
+    private GameManager gameManager;
     private Rigidbody2D rb2d;
-    private float secondsElapsed;
-    private float secondsElapsed2;
-    private float secondsElapsed3;
-    private Vector2 direction;
-    private Vector2 enemyPosition;
-    private Vector2 playerPosition;
+    private Rigidbody2D playerRb2d;
+    private int health;
 
     void Start()
     {
-        gameManager = GameObject.FindWithTag("GameController");
-        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         rb2d = GetComponent<Rigidbody2D>();
-        secondsElapsed = 0;
-        secondsElapsed2 = 0;
-        secondsElapsed3 = 0;
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+
+        health = startHealth;
+
+        StartCoroutine(Move());
+        StartCoroutine(ShootPlayer());
+    }
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            gameManager.Score += 100;
+        }
+
+        if ((rb2d.position - playerRb2d.position).magnitude >= despawnRadius)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Projectile")
+        if (col.gameObject.tag == "Player Projectile")
         {
             health -= 60;
         }
     }
 
-    void Update()
+    private IEnumerator Move()
     {
-        enemyPosition = rb2d.position;
-        playerPosition = playerRb2d.position;
-
-        secondsElapsed += Time.deltaTime;
-        secondsElapsed2 += Time.deltaTime;
-        secondsElapsed3 += Time.deltaTime;
-
-        if (secondsElapsed >= lifespan)
+        while (true)
         {
-            Destroy(gameObject);
-        }
-
-        if (secondsElapsed2 >= 0.5)
-        {
-            secondsElapsed2 = 0;
             float horizontal = Random.Range(-1f, 1f);
             float vertical = Random.Range(-1f, 1f);
 
-            Vector2 value = new Vector2(horizontal, vertical);
-            direction = value.normalized;
+            Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
             rb2d.velocity = direction * speed;
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             rb2d.rotation = angle;
+
+            yield return new WaitForSeconds(moveInterval);
         }
+    }
 
-        if (secondsElapsed3 >= 0.8)
+    private IEnumerator ShootPlayer()
+    {
+        while (true)
         {
-            secondsElapsed3 = 0;
-            GameObject enemyprojectile = Instantiate(enemyprojectilePrefab, rb2d.position, Quaternion.identity);
+            GameObject projectile = Instantiate(enemyProjectilePrefab, rb2d.position, Quaternion.identity);
+            Destroy(projectile, projectileLifetime);
 
-            Vector2 shootDirection = playerPosition - enemyPosition;
+            Vector2 playerDirection = playerRb2d.position - rb2d.position;
+            projectile.GetComponent<EnemyProjectileController>().SetDirection(playerDirection);
 
-            enemyprojectile.GetComponent<EnemyProjectileController>().Direction = shootDirection;
-        }
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            gameManager.GetComponent<GameManager>().Score += 100;
+            yield return new WaitForSeconds(shootPlayerInterval);
         }
     }
 }

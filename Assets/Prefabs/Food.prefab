@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58412503550241116}
   - component: {fileID: 114601132893106908}
   m_Layer: 0
-  m_Name: Candy
+  m_Name: Food
   m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750475027385712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.74, y: 0.03, z: 0.055309407}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +56,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -86,12 +86,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750475027385712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd068f100b41b5a4e9b209f1e843a95c, type: 3}
+  m_Script: {fileID: 11500000, guid: a88c1da076020574e8804afc883018d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 250
-  speed: 3
-  lifespan: 30
+  health: 100
+  speed: 0
+  lifespan: 0
 --- !u!212 &212454589313796042
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -127,7 +127,7 @@ SpriteRenderer:
   m_SortingLayerID: -469704047
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3805ad78d6f9aba42a847b04d92960f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 912ebf421028e4d46a9c77abfcdd9e2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -4,31 +4,100 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float health;
-    public float speed;
-    public float shootElapsed;
-    public float shootCoolDown;
-    public float MaxbarrierMaintain;
-    public float barrierCoolDown;
-    public float MaxbarrierCoolDown;
-    public bool isJumping;
     public GameObject projectilePrefab;
+    public int startHealth;
+    public float speed;
+    public float jumpMaintain;
+    public float jumpCooldown;
+    public float projectileLifetime;
+    public float shootCooldown;
 
     private Rigidbody2D rb2d;
+    private int health;
+    private float jumpElapsed;
+    private bool isJumping;
+    private float shootElapsed;
 
     void Start()
     {
-        shootElapsed = shootCoolDown;
-        barrierCoolDown = MaxbarrierCoolDown;
-        isJumping = false;
         rb2d = GetComponent<Rigidbody2D>();
+
+        health = startHealth;
+
+        jumpElapsed = jumpCooldown;
+        isJumping = false;
+
+        shootElapsed = shootCooldown;
     }
 
-    void CheckGameOver()
+    void Update()
     {
-        if (this.health <= 0)
+        MoveAndRotate();
+        Jump();
+        Shoot();
+    }
+
+    private void MoveAndRotate()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector2 direction = new Vector2(horizontal, vertical);
+
+        rb2d.velocity = speed * direction.normalized;
+
+        float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+        float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
+
+        rb2d.rotation = angle;
+    }
+
+    private void Jump()
+    {
+        jumpElapsed += Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump")) //Space bar > Jump
         {
-            Debug.LogError("Game Over");
+            if (jumpElapsed >= jumpCooldown) //Initial : 무적 1초 / 종료 후 쿨타임 시작 / 쿨 20초
+            {
+                Debug.Log("무적 사용.");
+                jumpElapsed = 0;
+            }
+            else
+            {
+                Debug.Log("Cooltime. Remain : " + (jumpCooldown - jumpElapsed));
+            }
+        }
+
+        if (jumpElapsed <= jumpMaintain)
+        {
+            isJumping = true;
+        }
+        else
+        {
+            isJumping = false;
+        }
+    }
+
+    private void Shoot()
+    {
+        shootElapsed += Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (shootElapsed >= shootCooldown)
+            {
+                shootElapsed = 0;
+
+                GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
+                Destroy(projectile, projectileLifetime);
+
+                float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+                Vector2 mouseDirection = mousePosition - rb2d.position;
+
+                projectile.GetComponent<PlayerProjectileController>().SetDirection(mouseDirection);
+            }
         }
     }
 
@@ -38,8 +107,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!isJumping)
             {
-                this.health -= 20;
-                Debug.Log("피격. 남은 체력 : " + this.health);
+                health -= 20;
+                Debug.Log("피격. 남은 체력 : " + health);
             }
             else
             {
@@ -52,12 +121,12 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "EnemyProjectile")
+        if (col.gameObject.tag == "Enemy Projectile")
         {
             if (!isJumping)
             {
-                this.health -= 25;
-                Debug.Log("피격. 남은 체력 : " + this.health);
+                health -= 25;
+                Debug.Log("피격. 남은 체력 : " + health);
             }
             else
             {
@@ -67,59 +136,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void CheckGameOver()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector2 direction = new Vector2(horizontal, vertical);
-        rb2d.velocity = direction * speed;
-
-        float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-        float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
-        rb2d.rotation = angle;
-
-        barrierCoolDown += Time.deltaTime;
-
-        if (Input.GetButtonDown("Jump")) //Space bar > Jump
+        if (health <= 0)
         {
-            if (barrierCoolDown >= MaxbarrierCoolDown) //Initial : 무적 1초 / 종료 후 쿨타임 시작 / 쿨 20초
-            {
-                Debug.Log("무적 사용.");
-                barrierCoolDown = 0;
-            }
-            else
-            {
-                Debug.Log("Cooltime. Remain : " + (MaxbarrierCoolDown - barrierCoolDown));
-            }
-        }
-
-        if (barrierCoolDown <= MaxbarrierMaintain)
-        {
-            isJumping = true;
-        }
-        else
-        {
-            isJumping = false;
-        }
-    }
-
-    void Update()
-    {
-        shootElapsed += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (shootElapsed >= shootCoolDown)
-            {
-                shootElapsed = 0;
-                GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
-
-                float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
-                Vector2 mouseDirection = mousePosition - rb2d.position;
-
-                projectile.GetComponent<ProjectileController>().Direction = mouseDirection;
-            }
+            Debug.LogError("Game Over");
         }
     }
 }
