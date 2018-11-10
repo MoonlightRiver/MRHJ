@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public float foodSpawnRadiusFrom;
     public float foodSpawnRadiusTo;
     public float foodSpawnInterval;
-    public float activeRadius;
     public int timeScorePerSecond;
 
     private Rigidbody2D playerRb2d;
@@ -49,7 +48,7 @@ public class GameManager : MonoBehaviour
         Score = 0;
 
         StartCoroutine(SpawnEnemy());
-        //StartCoroutine(SpawnFood());
+        StartCoroutine(SpawnFood());
         StartCoroutine(UpdateTimeSeconds());
     }
 

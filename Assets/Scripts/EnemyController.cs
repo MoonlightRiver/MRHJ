@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public GameObject enemyProjectilePrefab;
     public int startHealth;
     public float speed;
-    public float despawnRadius;
+    public float despawnDistance;
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
             gameManager.Score += 100;
         }
 
-        if ((rb2d.position - playerRb2d.position).magnitude >= despawnRadius)
+        if ((rb2d.position - playerRb2d.position).magnitude >= despawnDistance)
         {
             Destroy(gameObject);
         }

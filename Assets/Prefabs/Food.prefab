@@ -89,9 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88c1da076020574e8804afc883018d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 0
-  lifespan: 0
+  startHealth: 100
+  despawnDistance: 10
 --- !u!212 &212454589313796042
 SpriteRenderer:
   m_ObjectHideFlags: 1

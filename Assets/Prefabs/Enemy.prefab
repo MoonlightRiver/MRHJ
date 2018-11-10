@@ -93,7 +93,7 @@ MonoBehaviour:
     type: 2}
   startHealth: 100
   speed: 4.5
-  despawnRadius: 10
+  despawnDistance: 10
   moveInterval: 0.5
   shootPlayerInterval: 0.8
   projectileLifetime: 2
