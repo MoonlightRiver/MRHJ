@@ -1,29 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : BaseEntityController
 {
-    public GameObject enemyProjectilePrefab;
-    public int startHealth;
-    public float speed;
-    public float despawnDistance;
+    public GameObject projectilePrefab;
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
 
     private GameManager gameManager;
-    private Rigidbody2D rb2d;
     private Rigidbody2D playerRb2d;
-    private int health;
 
-    void Start()
+    new void Start()
     {
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        rb2d = GetComponent<Rigidbody2D>();
-        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        base.Start();
 
-        health = startHealth;
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
         StartCoroutine(Move());
         StartCoroutine(ShootPlayer());
@@ -31,7 +26,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Destroy(gameObject);
             gameManager.Score += 100;
@@ -47,7 +42,7 @@ public class EnemyController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            health -= 60;
+            Health -= 60;
         }
     }
 
@@ -73,7 +68,7 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            GameObject projectile = Instantiate(enemyProjectilePrefab, rb2d.position, Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
             Destroy(projectile, projectileLifetime);
 
             Vector2 playerDirection = playerRb2d.position - rb2d.position;

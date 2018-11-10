@@ -3,28 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodController : MonoBehaviour
+public class FoodController : BaseEntityController
 {
-    public int startHealth;
-    public float despawnDistance;
-
     private GameManager gameManager;
-    private Rigidbody2D rb2d;
     private Rigidbody2D playerRb2d;
-    private int health;
 
-    void Start()
+    new void Start()
     {
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        rb2d = GetComponent<Rigidbody2D>();
-        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        base.Start();
 
-        health = startHealth;
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Destroy(gameObject);
         }
@@ -39,7 +33,7 @@ public class FoodController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            health -= 60;
+            Health -= 60;
             gameManager.Score += 30;
         }
     }

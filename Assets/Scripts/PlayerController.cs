@@ -2,27 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseEntityController
 {
     public GameObject projectilePrefab;
-    public int startHealth;
-    public float speed;
     public float jumpMaintain;
     public float jumpCooldown;
     public float projectileLifetime;
     public float shootCooldown;
 
-    private Rigidbody2D rb2d;
-    private int health;
     private float jumpElapsed;
     private bool isJumping;
     private float shootElapsed;
 
-    void Start()
+    new void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-
-        health = startHealth;
+        base.Start();
 
         jumpElapsed = jumpCooldown;
         isJumping = false;
@@ -107,8 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!isJumping)
             {
-                health -= 20;
-                Debug.Log("피격. 남은 체력 : " + health);
+                Health -= 20;
             }
             else
             {
@@ -125,8 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!isJumping)
             {
-                health -= 25;
-                Debug.Log("피격. 남은 체력 : " + health);
+                Health -= 25;
             }
             else
             {
@@ -138,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Debug.LogError("Game Over");
         }
