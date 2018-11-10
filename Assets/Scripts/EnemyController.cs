@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : BaseEntityController
 {
     public GameObject projectilePrefab;
+    public GameObject itemPrefab;
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
@@ -29,6 +30,7 @@ public class EnemyController : BaseEntityController
         {
             Destroy(gameObject);
             gameManager.Score += 100;
+            giveItem();
         }
 
         if ((rb2d.position - playerRb2d.position).magnitude >= despawnDistance)
@@ -42,6 +44,18 @@ public class EnemyController : BaseEntityController
         if (col.gameObject.tag == "Player Projectile")
         {
             Health -= 60;
+        }
+    }
+
+    void giveItem()
+    {
+        float itemslot = Random.Range(0f, 100f);
+        if (itemslot < 50)
+        {
+            GameObject item_heal = Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
+
+            Vector2 playerDirection = playerRb2d.position - rb2d.position;
+            item_heal.GetComponent<EnemyProjectileController>().SetDirection(playerDirection);
         }
     }
 

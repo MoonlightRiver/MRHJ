@@ -132,6 +132,10 @@ public class PlayerController : BaseEntityController
             }
             CheckGameOver();
         }
+        if (col.gameObject.tag == "Item")
+        {
+            Health += 70;
+        }
     }
 
     private void CheckGameOver()
