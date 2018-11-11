@@ -180,6 +180,7 @@ MonoBehaviour:
   despawnDistance: 10
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
+  itemPrefab: {fileID: 1974356637723652, guid: ae345ba74d1f80d408a273da517eb5b7, type: 2}
   moveInterval: 0.5
   shootPlayerInterval: 0.8
   projectileLifetime: 2
