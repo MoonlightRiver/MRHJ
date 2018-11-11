@@ -8,6 +8,7 @@ TagManager:
   - Player Projectile
   - Enemy Projectile
   - Item
+  - Redzone
   layers:
   - Default
   - TransparentFX
@@ -50,6 +51,9 @@ TagManager:
     locked: 0
   - name: Entity
     uniqueID: 3825263249
+    locked: 0
+  - name: Object
+    uniqueID: 1080095155
     locked: 0
   - name: UI
     uniqueID: 4101272243

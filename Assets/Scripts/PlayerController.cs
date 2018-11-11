@@ -132,9 +132,13 @@ public class PlayerController : BaseEntityController
             }
             CheckGameOver();
         }
-        if (col.gameObject.tag == "Item")
+        else if (col.gameObject.tag == "Item")
         {
             Health += 70;
+        }
+        else if (col.gameObject.tag == "Redzone")
+        {
+            Health -= 50;
         }
     }
 

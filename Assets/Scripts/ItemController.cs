@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemController : BaseProjectileController
+public class ItemController : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D col)
     {

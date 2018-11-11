@@ -7,16 +7,20 @@ public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject foodPrefab;
+    public GameObject redzonePrefab;
     public GameObject player;
     public Text timeText;
     public Text scoreText;
+    public int timeScorePerSecond;
     public float enemySpawnRadiusFrom;
     public float enemySpawnRadiusTo;
     public float enemySpawnInterval;
     public float foodSpawnRadiusFrom;
     public float foodSpawnRadiusTo;
     public float foodSpawnInterval;
-    public int timeScorePerSecond;
+    public float redzoneCreateRadiusFrom;
+    public float redzoneCreateRadiusTo;
+    public float redzoneCreateInterval;
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -47,9 +51,10 @@ public class GameManager : MonoBehaviour
         TimeSeconds = 0;
         Score = 0;
 
+        StartCoroutine(UpdateTimeSeconds());
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnFood());
-        StartCoroutine(UpdateTimeSeconds());
+        StartCoroutine(CreateRedzone());
     }
 
     void Update()
@@ -96,6 +101,22 @@ public class GameManager : MonoBehaviour
             Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(foodSpawnInterval);
+        }
+    }
+
+    private IEnumerator CreateRedzone()
+    {
+        while (true)
+        {
+            float radius = Random.Range(redzoneCreateRadiusFrom, redzoneCreateRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 createPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(redzonePrefab, createPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(redzoneCreateInterval);
         }
     }
 }

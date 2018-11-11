@@ -28,9 +28,9 @@ public class EnemyController : BaseEntityController
     {
         if (Health <= 0)
         {
-            Destroy(gameObject);
             gameManager.Score += 100;
-            giveItem();
+            GiveItem();
+            Destroy(gameObject);
         }
 
         if ((rb2d.position - playerRb2d.position).magnitude >= despawnDistance)
@@ -47,15 +47,12 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    void giveItem()
+    void GiveItem()
     {
         float itemslot = Random.Range(0f, 100f);
         if (itemslot < 50)
         {
-            GameObject item_heal = Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
-
-            Vector2 playerDirection = playerRb2d.position - rb2d.position;
-            item_heal.GetComponent<EnemyProjectileController>().SetDirection(playerDirection);
+            Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
         }
     }
 
