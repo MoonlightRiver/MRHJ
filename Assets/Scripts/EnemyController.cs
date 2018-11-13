@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyController : BaseEntityController
 {
     public GameObject projectilePrefab;
-    public GameObject itemPrefab;
+    public GameObject ItemPrefab;
+
+    public float getItemRate;
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
@@ -49,10 +51,10 @@ public class EnemyController : BaseEntityController
 
     void GiveItem()
     {
-        float itemslot = Random.Range(0f, 100f);
-        if (itemslot < 50)
+        float itemslot = Random.Range(0f, 1f);
+        if (itemslot <= getItemRate/15f)
         {
-            Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
+            Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
         }
     }
 

@@ -146,7 +146,7 @@ public class PlayerController : BaseEntityController
     {
         if (Health <= 0)
         {
-            Debug.LogError("Game Over");
+            //Debug.LogError("Game Over");
         }
     }
 }
