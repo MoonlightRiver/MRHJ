@@ -6,7 +6,14 @@ using UnityEngine.UI;
 public class PlayerController : BaseEntityController
 {
     public GameObject projectilePrefab;
+    public Text HpText;
     public Text jumpingText;
+    public Text jumpText;
+    public Text RpowerText;
+    public Text RspeedText;
+    public Text SspeedText;
+    public Text MspeedText;
+
     public float jumpMaintain;
     public float jumpCooldown;
     public float projectileLifetime;
@@ -23,7 +30,17 @@ public class PlayerController : BaseEntityController
         }
         set {
             isJumping = value;
-            jumpingText.text = isJumping ? "Jumping" : string.Format("Cooldown: {0:f1}", Mathf.Max(jumpCooldown - jumpElapsed, 0f));
+            float jumpRest = jumpCooldown - jumpElapsed;
+            if(jumpRest > 0)
+            {
+                jumpingText.text = isJumping ? "Jumping" : string.Format("Cooldown: {0:f1}", jumpRest);
+                jumpText.text = isJumping ? string.Format("Jumping : {0:f1}", jumpMaintain - jumpElapsed) : string.Format("Cooldown: {0:f1}", jumpRest);
+            }
+            else
+            {
+                jumpingText.text = "Ready";
+                jumpText.text = "Ready";
+            }
         }
     }
     private float shootElapsed;
@@ -37,6 +54,7 @@ public class PlayerController : BaseEntityController
         IsJumping = false;
 
         shootElapsed = shootCooldown;
+        SettingUI();
     }
 
     void Update()
@@ -146,6 +164,7 @@ public class PlayerController : BaseEntityController
         {
             Health = 0; //Instant death
         }
+        SettingUI();
     }
 
     private void ItemEffect(ItemType Type)
@@ -206,6 +225,15 @@ public class PlayerController : BaseEntityController
                 Debug.Log("MaxHP is now " + maxHealth.ToString() + ".");
                 break;
         }
+    }
+
+    private void SettingUI()
+    {
+        HpText.text = Health.ToString() + " / " + maxHealth.ToString();
+        RpowerText.text = Damage.ToString();
+        RspeedText.text = "540 px/s";
+        SspeedText.text = shootCooldown.ToString() + " s";
+        MspeedText.text = speed.ToString() + " px/s";
     }
 
     private void CheckGameOver()
