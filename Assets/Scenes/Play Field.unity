@@ -736,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 1430355366}
   startHealth: 100
-  speed: 3.3333333
+  speed: 200
   despawnDistance: Infinity
   projectilePrefab: {fileID: 1669741716146714, guid: 306b39e3de5f76d4b909688e26494e2b,
     type: 2}
@@ -744,7 +744,9 @@ MonoBehaviour:
   jumpMaintain: 1
   jumpCooldown: 20
   projectileLifetime: 2
-  shootCooldown: 0.5
+  shootCooldown: 0.05
+  maxHealth: 100
+  Damage: 60
 --- !u!58 &1520034205
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1214,7 +1216,7 @@ MonoBehaviour:
   enemySpawnInterval: 2
   foodSpawnRadiusFrom: 2.5
   foodSpawnRadiusTo: 5
-  foodSpawnInterval: 2
+  foodSpawnInterval: 10
   redzoneCreateRadiusFrom: 2.5
   redzoneCreateRadiusTo: 5
   redzoneCreateInterval: 30

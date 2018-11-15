@@ -11,6 +11,9 @@ public class PlayerController : BaseEntityController
     public float jumpCooldown;
     public float projectileLifetime;
     public float shootCooldown;
+    public int maxHealth;
+    public int Damage;
+    public GameObject projectile;
 
     private float jumpElapsed;
     private bool isJumping;
@@ -29,6 +32,7 @@ public class PlayerController : BaseEntityController
     {
         base.Start();
 
+        maxHealth = Health;
         jumpElapsed = jumpCooldown;
         IsJumping = false;
 
@@ -48,7 +52,7 @@ public class PlayerController : BaseEntityController
         float vertical = Input.GetAxisRaw("Vertical");
         Vector2 direction = new Vector2(horizontal, vertical);
 
-        rb2d.velocity = speed * direction.normalized;
+        rb2d.velocity = (speed/60f) * direction.normalized;
 
         float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
@@ -89,7 +93,7 @@ public class PlayerController : BaseEntityController
             {
                 shootElapsed = 0;
 
-                GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
+                projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
                 Destroy(projectile, projectileLifetime);
 
                 float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
@@ -134,11 +138,73 @@ public class PlayerController : BaseEntityController
         }
         else if (col.gameObject.tag == "Item")
         {
-            Health += 70;
+            ItemController GotItem = col.gameObject.GetComponent<ItemController>();
+            ItemType Type = GotItem.type;
+            ItemEffect(Type);
         }
         else if (col.gameObject.tag == "Redzone")
         {
-            Health -= 50;
+            Health = 0; //Instant death
+        }
+    }
+
+    private void ItemEffect(ItemType Type)
+    {
+        switch (Type)
+        {
+            case ItemType.Heal:
+                int healAmount = (int) (maxHealth * 0.7);
+                if (maxHealth < Health + healAmount)
+                {
+                    healAmount = maxHealth - Health;
+                }
+                Health += healAmount;
+                Debug.Log("Healed " + healAmount.ToString() + " HP.");
+                break;
+            case ItemType.Rspeed:
+                //Rspeed : Initial : 9 (540 px) Add : 0.5f (30 px) Max 18 (1080 px)
+                Debug.Log("Rspeed is now " + " " + " px/s.");
+                break;
+            case ItemType.Sspeed:
+                if(shootCooldown > 0.2f)
+                {
+                    shootCooldown -= 0.05f;
+                }
+                Debug.Log("Sspeed is now " + shootCooldown + " s.");
+                break;
+            case ItemType.Rpower:
+                Damage += 15;
+                Debug.Log("Rpower is now " + Damage.ToString() + ".");
+                break;
+            case ItemType.Mspeed:
+                if (speed < 400)
+                {
+                    speed += 5;
+                }
+                Debug.Log("Mspeed is now " + speed.ToString() + " px/s.");
+                break;
+            case ItemType.JumpM:
+                if(jumpMaintain < 2)
+                {
+                    jumpMaintain += 0.1f;
+                }
+                Debug.Log("JumpM is now " + jumpMaintain.ToString() + " s.");
+                break;
+            case ItemType.JumpCD:
+                if(jumpCooldown>15)
+                {
+                    jumpCooldown -= 0.25f;
+                }
+                Debug.Log("JumpCD is now " + jumpCooldown.ToString() + " s.");
+                break;
+            case ItemType.MaxHpUp:
+                if(maxHealth < 200)
+                {
+                    maxHealth += 5;
+                }
+                Health += 5;
+                Debug.Log("MaxHP is now " + maxHealth.ToString() + ".");
+                break;
         }
     }
 

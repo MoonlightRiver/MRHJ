@@ -176,14 +176,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 114180738107376976}
   startHealth: 100
-  speed: 4.5
+  speed: 0.45
   despawnDistance: 10
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
-  itemPrefab: {fileID: 1974356637723652, guid: ae345ba74d1f80d408a273da517eb5b7, type: 2}
+  ItemPrefab: {fileID: 1974356637723652, guid: ae345ba74d1f80d408a273da517eb5b7, type: 2}
+  getItemRate: 12
   moveInterval: 0.5
   shootPlayerInterval: 0.8
   projectileLifetime: 2
+  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Sprite1: {fileID: 21300000, guid: 4d0a590884dbf924cb125e5347b6873d, type: 3}
+  Sprite2: {fileID: 21300000, guid: 1d0143afe69d08346925e40cdc54c8e7, type: 3}
+  Sprite3: {fileID: 21300000, guid: 99883b26679dc3c4bb2bb168b22d29e4, type: 3}
+  Sprite4: {fileID: 21300000, guid: e5fd8feb8d29c9747a41de02581af98f, type: 3}
+  Sprite5: {fileID: 21300000, guid: 3af99f5bf19145246a39b97fd98764de, type: 3}
+  Sprite6: {fileID: 21300000, guid: 8bf6c1baaad246242a03886d7cddf06c, type: 3}
+  Sprite7: {fileID: 21300000, guid: 4b98812f6171ba14f86338cbc6a202da, type: 3}
+  Sprite8: {fileID: 21300000, guid: 2daf8e8d30df52341a945476a278c617, type: 3}
+  HealRate: 50
+  RspeedRate: 7
+  SspeedRate: 6
+  RpowerRate: 9
+  MspeedRate: 6
+  JumpMRate: 8
+  JumpCDRate: 8
+  MaxHpUpRate: 6
 --- !u!114 &114821092579831098
 MonoBehaviour:
   m_ObjectHideFlags: 1
