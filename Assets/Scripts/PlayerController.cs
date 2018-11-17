@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerController : BaseEntityController
 {
     public GameObject projectilePrefab;
+    public GameObject playerPrefab;
+
     public Text HpText;
     public Text jumpingText;
     public Text jumpText;
@@ -23,6 +25,14 @@ public class PlayerController : BaseEntityController
     public int maxHealth;
     public int Damage;
     public GameObject projectile;
+
+    public float transformElapsed;
+    public Sprite Sprite1;
+    public Sprite Sprite2;
+    public Sprite Sprite3;
+    public Sprite Sprite4;
+
+    private SpriteRenderer spriteRenderer;
 
     private float jumpElapsed;
     private bool isJumping;
@@ -100,6 +110,10 @@ public class PlayerController : BaseEntityController
         IsJumping = false;
 
         shootElapsed = shootCooldown;
+        transformElapsed = 0.1f;
+
+        spriteRenderer = playerPrefab.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = Sprite1;
 
         Buff1Text.text = "None";
         Buff2Text.text = "None";
@@ -119,6 +133,16 @@ public class PlayerController : BaseEntityController
         float vertical = Input.GetAxisRaw("Vertical");
         Vector2 direction = new Vector2(horizontal, vertical);
 
+        if(!(horizontal == 0 && vertical == 0))
+        {
+            transformElapsed -= Time.deltaTime;
+        }
+        if (transformElapsed <= 0)
+        {
+            transformElapsed = 0.1f;
+            Transform();
+        }
+
         rb2d.velocity = (speed/60f) * direction.normalized;
 
         float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
@@ -126,6 +150,26 @@ public class PlayerController : BaseEntityController
         float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
 
         rb2d.rotation = angle;
+    }
+
+    private void Transform()
+    {
+        if (spriteRenderer.sprite == Sprite1)
+        {
+            spriteRenderer.sprite = Sprite2;
+        }
+        else if (spriteRenderer.sprite == Sprite2)
+        {
+            spriteRenderer.sprite = Sprite3;
+        }
+        else if (spriteRenderer.sprite == Sprite3)
+        {
+            spriteRenderer.sprite = Sprite4;
+        }
+        else
+        {
+            spriteRenderer.sprite = Sprite1;
+        }
     }
 
     private void Jump()

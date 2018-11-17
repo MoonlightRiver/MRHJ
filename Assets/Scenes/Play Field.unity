@@ -1477,6 +1477,7 @@ MonoBehaviour:
   despawnDistance: Infinity
   projectilePrefab: {fileID: 1669741716146714, guid: 306b39e3de5f76d4b909688e26494e2b,
     type: 2}
+  playerPrefab: {fileID: 1520034203}
   HpText: {fileID: 1224231307}
   jumpingText: {fileID: 1585284307}
   jumpText: {fileID: 424671852}
@@ -1484,13 +1485,20 @@ MonoBehaviour:
   RspeedText: {fileID: 148979399}
   SspeedText: {fileID: 396831340}
   MspeedText: {fileID: 1022473602}
+  Buff1Text: {fileID: 349700207}
+  Buff2Text: {fileID: 2139085148}
   jumpMaintain: 1
   jumpCooldown: 20
   projectileLifetime: 2
-  shootCooldown: 0.05
-  maxHealth: 0
+  shootCooldown: 0.5
+  maxHealth: 100
   Damage: 60
   projectile: {fileID: 0}
+  transformElapsed: 0
+  Sprite1: {fileID: 21300000, guid: 9768e469ffa71cf4da0fa7406ef3df88, type: 3}
+  Sprite2: {fileID: 21300000, guid: b2043cca3d86ba14bb959b27b10a5ac1, type: 3}
+  Sprite3: {fileID: 21300000, guid: 4fedccf8c69c0e247b543b27bd4530f6, type: 3}
+  Sprite4: {fileID: 21300000, guid: 69afb7ee7eaa35c4daf631add509f6c6, type: 3}
 --- !u!58 &1520034205
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1564,12 +1572,12 @@ SpriteRenderer:
   m_SortingLayerID: -469704047
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c009860f5dd4fd04b8a39c16666b4ce0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9768e469ffa71cf4da0fa7406ef3df88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.65, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

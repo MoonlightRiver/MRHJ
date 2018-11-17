@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 114028947772995340}
   startHealth: 1000
-  speed: 0.75
+  speed: 4.5
   despawnDistance: Infinity
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
