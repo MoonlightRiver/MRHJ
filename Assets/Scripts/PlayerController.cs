@@ -13,6 +13,8 @@ public class PlayerController : BaseEntityController
     public Text RspeedText;
     public Text SspeedText;
     public Text MspeedText;
+    public Text Buff1Text;
+    public Text Buff2Text;
 
     public float jumpMaintain;
     public float jumpCooldown;
@@ -24,6 +26,13 @@ public class PlayerController : BaseEntityController
 
     private float jumpElapsed;
     private bool isJumping;
+
+    private float buff1Elapsed;
+    private float buff2Elapsed;
+    private float buff1Maintain;
+    private float buff2Maintain;
+    private bool buff1working;
+    private bool buff2working;
     public bool IsJumping {
         get {
             return isJumping;
@@ -43,6 +52,43 @@ public class PlayerController : BaseEntityController
             }
         }
     }
+    public bool Buff1Working
+    {
+        get
+        {
+            return buff1working;
+        }
+        set
+        {
+            buff1working = value;
+            float buff1Rest = buff1Maintain - buff1Elapsed;
+            if (buff1Rest > 0)
+            {
+                Buff1Text.text = buff1working ? string.Format("Remain: {0:f1}"+" s", buff1Rest) : "None";
+            }
+            else
+            {
+                Buff1Text.text = "None";
+            }
+        }
+    }
+    public bool Buff2Working {
+        get {
+            return buff2working;
+        }
+        set {
+            buff2working = value;
+            float buff2Rest = buff2Maintain - buff2Elapsed;
+            if (buff2Rest > 0)
+            {
+                Buff2Text.text = buff2working ? string.Format("Remain: {0:f1}"+" s", buff2Rest) : "None";
+            }
+            else
+            {
+                Buff2Text.text = "None";
+            }
+        }
+    }
     private float shootElapsed;
 
     new void Start()
@@ -54,6 +100,9 @@ public class PlayerController : BaseEntityController
         IsJumping = false;
 
         shootElapsed = shootCooldown;
+
+        Buff1Text.text = "None";
+        Buff2Text.text = "None";
         SettingUI();
     }
 
