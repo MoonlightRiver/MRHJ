@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject MiniBossPrefab;
     public GameObject foodPrefab;
     public GameObject redzonePrefab;
     public GameObject player;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public float redzoneCreateRadiusFrom;
     public float redzoneCreateRadiusTo;
     public float redzoneCreateInterval;
+    public float MiniBossSpawnInterval;
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(UpdateTimeSeconds());
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnMiniBoss());
         StartCoroutine(SpawnFood());
         StartCoroutine(CreateRedzone());
     }
@@ -85,6 +88,22 @@ public class GameManager : MonoBehaviour
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(enemySpawnInterval);
+        }
+    }
+
+    private IEnumerator SpawnMiniBoss()
+    {
+        while (true)
+        {
+            float radius = Random.Range(enemySpawnRadiusFrom, enemySpawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(MiniBossPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(MiniBossSpawnInterval);
         }
     }
 

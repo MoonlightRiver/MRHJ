@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Heal, Rspeed, Sspeed, Rpower, Mspeed, JumpM, JumpCD, MaxHpUp };
+public enum BuffType { JumpBf, RspeedBf, SspeedBf, RpowerBf, MspeedBf, AspeedBf };
 
-public class EnemyController : BaseEntityController
+public class MiniBossController : BaseEntityController
 {
     public GameObject projectilePrefab;
     public GameObject ItemPrefab;
 
-    public float getItemRate;
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
@@ -24,20 +23,9 @@ public class EnemyController : BaseEntityController
     public Sprite Sprite4;
     public Sprite Sprite5;
     public Sprite Sprite6;
-    public Sprite Sprite7;
-    public Sprite Sprite8;
     private SpriteRenderer spriteRenderer;
-
-    public float HealRate;
-    public float RspeedRate;
-    public float SspeedRate;
-    public float RpowerRate;
-    public float MspeedRate;
-    public float JumpMRate;
-    public float JumpCDRate;
-    public float MaxHpUpRate;
-
-    public ItemType Type { get; private set; }
+    
+    public BuffType TypeBf { get; private set; }
 
     new void Start()
     {
@@ -57,7 +45,7 @@ public class EnemyController : BaseEntityController
     {
         if (Health <= 0)
         {
-            gameManager.Score += 100;
+            gameManager.Score += 500;
             GiveItem();
             Destroy(gameObject);
         }
@@ -79,17 +67,13 @@ public class EnemyController : BaseEntityController
 
     void GiveItem()
     {
-        float itemslot = Random.Range(0f, 1f);
-        if (itemslot <= getItemRate/15f)
-        {
-            Type = SlotMachine();
-            ItemController NewItem = ItemPrefab.GetComponent<ItemController>();
-            NewItem.type = Type;
-            NewItem.BSType = "Basic";
-            MatchImage(Type, spriteRenderer);
+        TypeBf = SlotMachine();
+        ItemController NewItem = ItemPrefab.GetComponent<ItemController>();
+        NewItem.BfType = TypeBf;
+        NewItem.BSType = "Buff";
+        MatchImage(TypeBf, spriteRenderer);
 
-            Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
-        }
+        Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
     }
 
     private IEnumerator Move()
@@ -124,70 +108,56 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    ItemType SlotMachine()
+    BuffType SlotMachine()
     {
-        float ItemSlot = Random.Range(0f, 100f);
-        if (ItemSlot <= HealRate)
+        float ItemSlot = Random.Range(0f, 6f);
+        if (ItemSlot <= 1f)
         {
-            return ItemType.Heal;
+            return BuffType.JumpBf;
         }
-        else if (ItemSlot <= HealRate + RspeedRate)
+        else if (ItemSlot <= 2f)
         {
-            return ItemType.Rspeed;
+            return BuffType.RspeedBf;
         }
-        else if (ItemSlot <= HealRate + RspeedRate + SspeedRate)
+        else if (ItemSlot <= 3f)
         {
-            return ItemType.Sspeed;
+            return BuffType.SspeedBf;
         }
-        else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate)
+        else if (ItemSlot <= 4f)
         {
-            return ItemType.Rpower;
+            return BuffType.RpowerBf;
         }
-        else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate)
+        else if (ItemSlot <= 5f)
         {
-            return ItemType.Mspeed;
-        }
-        else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate + JumpMRate)
-        {
-            return ItemType.JumpM;
-        }
-        else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate + JumpMRate + JumpCDRate)
-        {
-            return ItemType.JumpCD;
+            return BuffType.MspeedBf;
         }
         else
         {
-            return ItemType.MaxHpUp;
+            return BuffType.AspeedBf;
         }
     }
 
-    void MatchImage(ItemType Type, SpriteRenderer spriteRenderer)
+    void MatchImage(BuffType TypeBf, SpriteRenderer spriteRenderer)
     {
-        switch (Type)
+        switch (TypeBf)
         {
-            case ItemType.Heal:
+            case BuffType.JumpBf:
                 spriteRenderer.sprite = Sprite1;
                 break;
-            case ItemType.Rspeed:
+            case BuffType.RspeedBf:
                 spriteRenderer.sprite = Sprite2;
                 break;
-            case ItemType.Sspeed:
+            case BuffType.SspeedBf:
                 spriteRenderer.sprite = Sprite3;
                 break;
-            case ItemType.Rpower:
+            case BuffType.RpowerBf:
                 spriteRenderer.sprite = Sprite4;
                 break;
-            case ItemType.Mspeed:
+            case BuffType.MspeedBf:
                 spriteRenderer.sprite = Sprite5;
                 break;
-            case ItemType.JumpM:
+            case BuffType.AspeedBf:
                 spriteRenderer.sprite = Sprite6;
-                break;
-            case ItemType.JumpCD:
-                spriteRenderer.sprite = Sprite7;
-                break;
-            case ItemType.MaxHpUp:
-                spriteRenderer.sprite = Sprite8;
                 break;
         }
     }

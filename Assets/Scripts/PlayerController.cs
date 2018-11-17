@@ -157,8 +157,21 @@ public class PlayerController : BaseEntityController
         else if (col.gameObject.tag == "Item")
         {
             ItemController GotItem = col.gameObject.GetComponent<ItemController>();
-            ItemType Type = GotItem.type;
-            ItemEffect(Type);
+            switch(GotItem.BSType)
+            {
+                case "Basic":
+                    ItemType Type = GotItem.type;
+                    ItemEffect(Type);
+                    break;
+                case "Buff":
+                    BuffType Typebf = GotItem.BfType;
+                    BuffEffect(Typebf);
+                    break;
+                //case "Boss":
+                //    BossType Typebo = GotItem.BoType;
+                //    BossEffect(Typebo);
+                //    break;
+            }
         }
         else if (col.gameObject.tag == "Redzone")
         {
@@ -182,7 +195,7 @@ public class PlayerController : BaseEntityController
                 break;
             case ItemType.Rspeed:
                 //Rspeed : Initial : 9 (540 px) Add : 0.5f (30 px) Max 18 (1080 px)
-                Debug.Log("Rspeed is now " + " " + " px/s.");
+                Debug.Log("Rspeed is now " + "540" + " px/s.");
                 break;
             case ItemType.Sspeed:
                 if(shootCooldown > 0.2f)
@@ -226,6 +239,36 @@ public class PlayerController : BaseEntityController
                 break;
         }
     }
+
+    private void BuffEffect(BuffType Type)
+    {
+        switch (Type)
+        {
+            case BuffType.JumpBf:
+                Debug.Log("Use Jump Buff");
+                break;
+            case BuffType.RspeedBf:
+                Debug.Log("Use Rspeed Buff");
+                break;
+            case BuffType.SspeedBf:
+                Debug.Log("Use Sspeed Buff");
+                break;
+            case BuffType.RpowerBf:
+                Debug.Log("Use Rpower Buff");
+                break;
+            case BuffType.MspeedBf:
+                Debug.Log("Use Mspeed Buff");
+                break;
+            case BuffType.AspeedBf:
+                Debug.Log("Use All speed Buff");
+                break;
+        }
+    }
+
+    //private void BossEffect(BossType Type)
+    //{
+    //    Debug.Log("Hello?");
+    //}
 
     private void SettingUI()
     {
