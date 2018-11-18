@@ -2,6 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    Heal,
+    ProjectileSpeedIncrease,
+    ProjectileCooldownDecrease,
+    ProjectileDamageIncrease,
+    MovementSpeedIncrease,
+    JumpDurationIncrease,
+    JumpCooldownDecrease,
+    MaxHealthIncrease
+}
+
 public class ItemController : MonoBehaviour
 {
     public string BSType;

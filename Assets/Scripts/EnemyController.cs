@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Heal, Rspeed, Sspeed, Rpower, Mspeed, JumpM, JumpCD, MaxHpUp };
-
 public class EnemyController : BaseEntityController
 {
     public GameObject projectilePrefab;
@@ -89,6 +87,7 @@ public class EnemyController : BaseEntityController
             MatchImage(Type, spriteRenderer);
 
             Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
+
         }
     }
 
@@ -133,31 +132,31 @@ public class EnemyController : BaseEntityController
         }
         else if (ItemSlot <= HealRate + RspeedRate)
         {
-            return ItemType.Rspeed;
+            return ItemType.ProjectileSpeedIncrease;
         }
         else if (ItemSlot <= HealRate + RspeedRate + SspeedRate)
         {
-            return ItemType.Sspeed;
+            return ItemType.ProjectileCooldownDecrease;
         }
         else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate)
         {
-            return ItemType.Rpower;
+            return ItemType.ProjectileDamageIncrease;
         }
         else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate)
         {
-            return ItemType.Mspeed;
+            return ItemType.MovementSpeedIncrease;
         }
         else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate + JumpMRate)
         {
-            return ItemType.JumpM;
+            return ItemType.JumpDurationIncrease;
         }
         else if (ItemSlot <= HealRate + RspeedRate + SspeedRate + RpowerRate + MspeedRate + JumpMRate + JumpCDRate)
         {
-            return ItemType.JumpCD;
+            return ItemType.JumpCooldownDecrease;
         }
         else
         {
-            return ItemType.MaxHpUp;
+            return ItemType.MaxHealthIncrease;
         }
     }
 
@@ -168,25 +167,25 @@ public class EnemyController : BaseEntityController
             case ItemType.Heal:
                 spriteRenderer.sprite = Sprite1;
                 break;
-            case ItemType.Rspeed:
+            case ItemType.ProjectileSpeedIncrease:
                 spriteRenderer.sprite = Sprite2;
                 break;
-            case ItemType.Sspeed:
+            case ItemType.ProjectileCooldownDecrease:
                 spriteRenderer.sprite = Sprite3;
                 break;
-            case ItemType.Rpower:
+            case ItemType.ProjectileDamageIncrease:
                 spriteRenderer.sprite = Sprite4;
                 break;
-            case ItemType.Mspeed:
+            case ItemType.MovementSpeedIncrease:
                 spriteRenderer.sprite = Sprite5;
                 break;
-            case ItemType.JumpM:
+            case ItemType.JumpDurationIncrease:
                 spriteRenderer.sprite = Sprite6;
                 break;
-            case ItemType.JumpCD:
+            case ItemType.JumpCooldownDecrease:
                 spriteRenderer.sprite = Sprite7;
                 break;
-            case ItemType.MaxHpUp:
+            case ItemType.MaxHealthIncrease:
                 spriteRenderer.sprite = Sprite8;
                 break;
         }

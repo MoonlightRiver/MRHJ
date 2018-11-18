@@ -286,43 +286,43 @@ public class PlayerController : BaseEntityController
                 Health += healAmount;
                 Debug.Log("Healed " + healAmount.ToString() + " HP.");
                 break;
-            case ItemType.Rspeed:
+            case ItemType.ProjectileSpeedIncrease:
                 //Rspeed : Initial : 9 (540 px) Add : 0.5f (30 px) Max 18 (1080 px)
                 Debug.Log("Rspeed is now " + "540" + " px/s.");
                 break;
-            case ItemType.Sspeed:
+            case ItemType.ProjectileCooldownDecrease:
                 if(shootCooldown > 0.2f)
                 {
                     shootCooldown -= 0.05f;
                 }
                 Debug.Log("Sspeed is now " + shootCooldown + " s.");
                 break;
-            case ItemType.Rpower:
+            case ItemType.ProjectileDamageIncrease:
                 Damage += 15;
                 Debug.Log("Rpower is now " + Damage.ToString() + ".");
                 break;
-            case ItemType.Mspeed:
+            case ItemType.MovementSpeedIncrease:
                 if (speed < 400)
                 {
                     speed += 5;
                 }
                 Debug.Log("Mspeed is now " + speed.ToString() + " px/s.");
                 break;
-            case ItemType.JumpM:
+            case ItemType.JumpDurationIncrease:
                 if(jumpMaintain < 2)
                 {
                     jumpMaintain += 0.1f;
                 }
                 Debug.Log("JumpM is now " + jumpMaintain.ToString() + " s.");
                 break;
-            case ItemType.JumpCD:
+            case ItemType.JumpCooldownDecrease:
                 if(jumpCooldown>15)
                 {
                     jumpCooldown -= 0.25f;
                 }
                 Debug.Log("JumpCD is now " + jumpCooldown.ToString() + " s.");
                 break;
-            case ItemType.MaxHpUp:
+            case ItemType.MaxHealthIncrease:
                 if(maxHealth < 200)
                 {
                     maxHealth += 5;
