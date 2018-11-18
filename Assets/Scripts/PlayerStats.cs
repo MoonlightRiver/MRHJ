@@ -91,11 +91,11 @@ public class PlayerStats : BaseEntityStats
         JumpCooldown = initialJumpCooldown;
     }
 
-    public void ItemEffect(ItemType Type)
+    public void ItemEffect(BasicItemType Type)
     {
         switch (Type)
         {
-            case ItemType.Heal:
+            case BasicItemType.Heal:
                 int healAmount = (int)(MaxHealth * 0.7);
                 if (MaxHealth < Health + healAmount)
                 {
@@ -105,7 +105,7 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("Healed " + healAmount.ToString() + " HP.");
                 break;
 
-            case ItemType.MaxHealthIncrease:
+            case BasicItemType.MaxHealthIncrease:
                 if (MaxHealth < 200)
                 {
                     MaxHealth += 5;
@@ -114,7 +114,7 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("MaxHP is now " + MaxHealth.ToString() + ".");
                 break;
 
-            case ItemType.MoveSpeedIncrease:
+            case BasicItemType.MoveSpeedIncrease:
                 if (MoveSpeed < 400)
                 {
                     MoveSpeed += 5;
@@ -122,12 +122,12 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("Mspeed is now " + MoveSpeed.ToString() + " px/s.");
                 break;
 
-            case ItemType.ProjectileDamageIncrease:
+            case BasicItemType.ProjectileDamageIncrease:
                 ProjectileDamage += 15;
                 Debug.Log("Rpower is now " + ProjectileDamage.ToString() + ".");
                 break;
 
-            case ItemType.ShootIntervalDecrease:
+            case BasicItemType.ShootIntervalDecrease:
                 if (ShootInterval > 0.2f)
                 {
                     ShootInterval -= 0.05f;
@@ -135,12 +135,12 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("Sspeed is now " + ShootInterval + " s.");
                 break;
 
-            case ItemType.ProjectileSpeedIncrease:
+            case BasicItemType.ProjectileSpeedIncrease:
                 //Rspeed : Initial : 9 (540 px) Add : 0.5f (30 px) Max 18 (1080 px)
                 Debug.Log("Rspeed is now " + "540" + " px/s.");
                 break;
             
-            case ItemType.JumpDurationIncrease:
+            case BasicItemType.JumpDurationIncrease:
                 if (JumpDuration < 2)
                 {
                     JumpDuration += 0.1f;
@@ -148,7 +148,7 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("JumpM is now " + JumpDuration.ToString() + " s.");
                 break;
 
-            case ItemType.JumpCooldownDecrease:
+            case BasicItemType.JumpCooldownDecrease:
                 if (JumpCooldown > 15)
                 {
                     JumpCooldown -= 0.25f;
