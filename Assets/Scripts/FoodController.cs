@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FoodController : BaseEntityController
 {
+    public float despawnDistance;
+
     private GameManager gameManager;
     private Rigidbody2D playerRb2d;
     private FoodStats stats;

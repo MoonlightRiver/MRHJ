@@ -4,10 +4,11 @@ using UnityEngine;
 
 public abstract class BaseProjectileController : MonoBehaviour
 {
-    public float speed;
+    public int Damage { get; set; }
 
-    public void SetDirection(Vector2 direction)
+    public void Initialize(float speed, Vector2 direction, int damage)
     {
         GetComponent<Rigidbody2D>().velocity = speed * direction.normalized;
+        Damage = damage;
     }
 }

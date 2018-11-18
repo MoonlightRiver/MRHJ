@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public float redzoneCreateRadiusTo;
     public float redzoneCreateInterval;
 
-    private Rigidbody2D playerRb2d;
-    private Vector2 playerPosition;
     private int _timeSeconds;
+    private int _score;
+
     public int TimeSeconds {
         get {
             return _timeSeconds;
@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
             timeText.text = timeText.text = string.Format("{0:d2}:{1:d2}", TimeSeconds / 60, TimeSeconds % 60);
         }
     }
-    private int _score;
     public int Score {
         get {
             return _score;
@@ -47,11 +46,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Rigidbody2D playerRb2d;
+    private Vector2 playerPosition;
+
     void Start()
     {
-        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
         TimeSeconds = 0;
         Score = 0;
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
         StartCoroutine(UpdateTimeSeconds());
         StartCoroutine(SpawnEnemy());

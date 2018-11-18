@@ -64,7 +64,7 @@ public class PlayerController : BaseEntityController
         float vertical = Input.GetAxisRaw("Vertical");
         Vector2 direction = new Vector2(horizontal, vertical);
 
-        rb2d.velocity = stats.MovementSpeed / 60f * direction.normalized;
+        rb2d.velocity = stats.MoveSpeed / 60f * direction.normalized;
 
         float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
@@ -112,7 +112,7 @@ public class PlayerController : BaseEntityController
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (shootElapsed >= stats.ProjectileCooldown)
+            if (shootElapsed >= stats.ShootInterval)
             {
                 shootElapsed = 0;
 
@@ -123,7 +123,7 @@ public class PlayerController : BaseEntityController
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
                 Vector2 mouseDirection = mousePosition - rb2d.position;
 
-                projectile.GetComponent<PlayerProjectileController>().SetDirection(mouseDirection);
+                projectile.GetComponent<PlayerProjectileController>().Initialize(stats.ProjectileSpeed, mouseDirection, stats.ProjectileDamage);
             }
         }
     }
@@ -161,22 +161,8 @@ public class PlayerController : BaseEntityController
         }
         else if (col.gameObject.tag == "Item")
         {
-            ItemController GotItem = col.gameObject.GetComponent<ItemController>();
-            switch(GotItem.BSType)
-            {
-                case "Basic":
-                    ItemType Type = GotItem.type;
-                    stats.ItemEffect(Type);
-                    break;
-                case "Buff":
-                    BuffType Typebf = GotItem.BfType;
-                    //BuffEffect(Typebf);
-                    break;
-                //case "Boss":
-                //    BossType Typebo = GotItem.BoType;
-                //    BossEffect(Typebo);
-                //    break;
-            }
+            ItemController item = col.gameObject.GetComponent<ItemController>();
+            stats.ItemEffect(item.Type);
         }
         else if (col.gameObject.tag == "Redzone")
         {

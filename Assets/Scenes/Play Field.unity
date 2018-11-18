@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 1022473603}
   - component: {fileID: 1022473602}
   m_Layer: 5
-  m_Name: Movement Speed Text
+  m_Name: Move Speed Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,7 +1471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99044c112de9ec546a3ac8c1021ce184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnDistance: Infinity
   projectilePrefab: {fileID: 1669741716146714, guid: 306b39e3de5f76d4b909688e26494e2b,
     type: 2}
   jumpText: {fileID: 1585284307}
@@ -1593,14 +1592,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 1430355366}
   initialMaxHealth: 100
-  initialMovementSpeed: 200
   panelHealthText: {fileID: 1224231307}
-  panelMovementSpeedText: {fileID: 1022473602}
+  panelMoveSpeedText: {fileID: 1022473602}
   panelProjectileDamageText: {fileID: 2083302349}
   panelProjectileCooldownText: {fileID: 396831340}
   panelProjectileSpeedText: {fileID: 148979399}
+  initialMoveSpeed: 200
+  initialShootInterval: 0.5
   initialProjectileDamage: 60
-  initialProjectileCooldown: 0.5
   initialProjectileSpeed: 10
   initialProjectileLifetime: 2
   initialJumpDuration: 1
@@ -1965,7 +1964,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1639976743069064, guid: ebcdc5f12bf9aea4bb7dac3d4136a2e3,
     type: 2}
   foodPrefab: {fileID: 1381801063415786, guid: 8e5b66948215e6842abb9a84f357880a, type: 2}
-  miniBossPrefab: {fileID: 0}
+  miniBossPrefab: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd,
+    type: 2}
   redzonePrefab: {fileID: 1010435434162748, guid: aa4154fe83a77dd48911a7d0513254f1,
     type: 2}
   timeText: {fileID: 1129103742}
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   spawnRadiusTo: 5
   enemySpawnInterval: 2
   foodSpawnInterval: 10
-  miniBossSpawnInterval: 0
+  miniBossSpawnInterval: 30
   redzoneCreateRadiusFrom: 2.5
   redzoneCreateRadiusTo: 5
   redzoneCreateInterval: 30

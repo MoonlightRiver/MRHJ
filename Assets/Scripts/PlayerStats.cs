@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class PlayerStats : BaseEntityStats
 {
     public Text panelHealthText;
-    public Text panelMovementSpeedText;
+    public Text panelMoveSpeedText;
     public Text panelProjectileDamageText;
     public Text panelProjectileCooldownText;
     public Text panelProjectileSpeedText;
 
+    public float initialMoveSpeed;
+    public float initialShootInterval;
     public int initialProjectileDamage;
-    public float initialProjectileCooldown;
     public float initialProjectileSpeed;
     public float initialProjectileLifetime;
     public float initialJumpDuration;
     public float initialJumpCooldown;
+
+    private float _moveSpeed;
+    private float _shootInterval;
+    private int _projectileDamage;
+    private float _projectileSpeed;
 
     public override int Health {
         get {
@@ -24,46 +30,48 @@ public class PlayerStats : BaseEntityStats
         }
         set {
             base.Health = value;
+
             panelHealthText.text = string.Format("HP: {0}/{1}", Health, MaxHealth);
         }
     }
-    public override float MovementSpeed {
+    public float MoveSpeed {
         get {
-            return base.MovementSpeed;
+            return _moveSpeed;
         }
         set {
-            base.MovementSpeed = value;
-            panelMovementSpeedText.text = MovementSpeed.ToString() + " px/s";
+            _moveSpeed = value;
+
+            panelMoveSpeedText.text = MoveSpeed.ToString() + " px/s";
         }
     }
-    private int _projectileDamage;
+    public float ShootInterval {
+        get {
+            return _shootInterval;
+        }
+        set {
+            _shootInterval = value;
+
+            panelProjectileCooldownText.text = ShootInterval.ToString() + " s";
+        }
+    }
     public int ProjectileDamage {
         get {
             return _projectileDamage;
         }
         set {
             _projectileDamage = value;
-            panelProjectileDamageText.text = _projectileDamage.ToString();
+
+            panelProjectileDamageText.text = ProjectileDamage.ToString();
         }
     }
-    private float _projectileCooldown;
-    public float ProjectileCooldown {
-        get {
-            return _projectileCooldown;
-        }
-        set {
-            _projectileCooldown = value;
-            panelProjectileCooldownText.text = _projectileCooldown.ToString() + " s";
-        }
-    }
-    private float _projectileSpeed;
     public float ProjectileSpeed {
         get {
             return _projectileSpeed;
         }
         set {
             _projectileSpeed = value;
-            panelProjectileSpeedText.text = _projectileSpeed.ToString() + " px/s";
+
+            panelProjectileSpeedText.text = ProjectileSpeed.ToString() + " px/s";
         }
     }
     public float ProjectileLifetime { get; set; }
@@ -74,8 +82,9 @@ public class PlayerStats : BaseEntityStats
     {
         base.Start();
 
+        MoveSpeed = initialMoveSpeed;
+        ShootInterval = initialShootInterval;
         ProjectileDamage = initialProjectileDamage;
-        ProjectileCooldown = initialProjectileCooldown;
         ProjectileSpeed = initialProjectileSpeed;
         ProjectileLifetime = initialProjectileLifetime;
         JumpDuration = initialJumpDuration;
@@ -105,12 +114,12 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("MaxHP is now " + MaxHealth.ToString() + ".");
                 break;
 
-            case ItemType.MovementSpeedIncrease:
-                if (MovementSpeed < 400)
+            case ItemType.MoveSpeedIncrease:
+                if (MoveSpeed < 400)
                 {
-                    MovementSpeed += 5;
+                    MoveSpeed += 5;
                 }
-                Debug.Log("Mspeed is now " + MovementSpeed.ToString() + " px/s.");
+                Debug.Log("Mspeed is now " + MoveSpeed.ToString() + " px/s.");
                 break;
 
             case ItemType.ProjectileDamageIncrease:
@@ -118,12 +127,12 @@ public class PlayerStats : BaseEntityStats
                 Debug.Log("Rpower is now " + ProjectileDamage.ToString() + ".");
                 break;
 
-            case ItemType.ProjectileCooldownDecrease:
-                if (ProjectileCooldown > 0.2f)
+            case ItemType.ShootIntervalDecrease:
+                if (ShootInterval > 0.2f)
                 {
-                    ProjectileCooldown -= 0.05f;
+                    ShootInterval -= 0.05f;
                 }
-                Debug.Log("Sspeed is now " + ProjectileCooldown + " s.");
+                Debug.Log("Sspeed is now " + ShootInterval + " s.");
                 break;
 
             case ItemType.ProjectileSpeedIncrease:

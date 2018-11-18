@@ -9,6 +9,8 @@ public class MiniBossController : BaseEntityController
     public GameObject projectilePrefab;
     public GameObject ItemPrefab;
 
+    public float despawnDistance;
+
     public float moveInterval;
     public float shootPlayerInterval;
     public float projectileLifetime;
@@ -72,13 +74,13 @@ public class MiniBossController : BaseEntityController
 
     void GiveItem()
     {
-        TypeBf = SlotMachine();
+        /*TypeBf = SlotMachine();
         ItemController NewItem = ItemPrefab.GetComponent<ItemController>();
         NewItem.BfType = TypeBf;
         NewItem.BSType = "Buff";
         MatchImage(TypeBf, spriteRenderer);
 
-        Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
+        Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);*/
     }
 
     private IEnumerator Move()
@@ -90,7 +92,7 @@ public class MiniBossController : BaseEntityController
 
             Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-            rb2d.velocity = direction * stats.MovementSpeed;
+            rb2d.velocity = direction * stats.MoveSpeed;
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             rb2d.rotation = angle;
@@ -107,7 +109,7 @@ public class MiniBossController : BaseEntityController
             Destroy(projectile, projectileLifetime);
 
             Vector2 playerDirection = playerRb2d.position - rb2d.position;
-            projectile.GetComponent<EnemyProjectileController>().SetDirection(playerDirection);
+            //projectile.GetComponent<EnemyProjectileController>().Initialize(playerDirection);
 
             yield return new WaitForSeconds(shootPlayerInterval);
         }
