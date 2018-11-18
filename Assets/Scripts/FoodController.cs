@@ -6,10 +6,13 @@ public class FoodController : BaseEntityController
 {
     private GameManager gameManager;
     private Rigidbody2D playerRb2d;
+    private FoodStats stats;
 
-    new void Start()
+    protected override void Start()
     {
         base.Start();
+
+        stats = GetComponent<FoodStats>();
 
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
@@ -17,7 +20,7 @@ public class FoodController : BaseEntityController
 
     void Update()
     {
-        if (Health <= 0)
+        if (stats.Health <= 0)
         {
             Destroy(gameObject);
         }
@@ -32,7 +35,7 @@ public class FoodController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            Health -= 60;
+            stats.Health -= 60;
             gameManager.Score += 30;
         }
     }

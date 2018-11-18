@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 50215908048711510}
   - component: {fileID: 58378899205546082}
   - component: {fileID: 114411864227611528}
+  - component: {fileID: 114447850251088962}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -174,9 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16069017661b3ac47b821ed7e4b6446e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 114180738107376976}
-  startHealth: 100
-  speed: 3
   despawnDistance: 10
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
@@ -185,7 +183,7 @@ MonoBehaviour:
   moveInterval: 0.5
   shootPlayerInterval: 0.8
   projectileLifetime: 2
-  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
   Sprite1: {fileID: 21300000, guid: 4d0a590884dbf924cb125e5347b6873d, type: 3}
   Sprite2: {fileID: 21300000, guid: 1d0143afe69d08346925e40cdc54c8e7, type: 3}
   Sprite3: {fileID: 21300000, guid: 99883b26679dc3c4bb2bb168b22d29e4, type: 3}
@@ -202,6 +200,20 @@ MonoBehaviour:
   JumpMRate: 8
   JumpCDRate: 8
   MaxHpUpRate: 6
+--- !u!114 &114447850251088962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1639976743069064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea49ca358ba8f143bfd9c6e466d908a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 114180738107376976}
+  initialMaxHealth: 100
+  initialMovementSpeed: 500
 --- !u!114 &114821092579831098
 MonoBehaviour:
   m_ObjectHideFlags: 1

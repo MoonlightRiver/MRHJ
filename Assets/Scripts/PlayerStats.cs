@@ -5,19 +5,39 @@ using UnityEngine.UI;
 
 public class PlayerStats : BaseEntityStats
 {
+    public Text panelHealthText;
+    public Text panelMovementSpeedText;
     public Text panelProjectileDamageText;
     public Text panelProjectileCooldownText;
     public Text panelProjectileSpeedText;
 
-    public float initialProjectileDamage;
+    public int initialProjectileDamage;
     public float initialProjectileCooldown;
     public float initialProjectileSpeed;
     public float initialProjectileLifetime;
     public float initialJumpDuration;
     public float initialJumpCooldown;
 
-    private float _projectileDamage;
-    public float ProjectileDamage {
+    public override int Health {
+        get {
+            return base.Health;
+        }
+        set {
+            base.Health = value;
+            panelHealthText.text = string.Format("HP: {0}/{1}", Health, MaxHealth);
+        }
+    }
+    public override float MovementSpeed {
+        get {
+            return base.MovementSpeed;
+        }
+        set {
+            base.MovementSpeed = value;
+            panelMovementSpeedText.text = MovementSpeed.ToString() + " px/s";
+        }
+    }
+    private int _projectileDamage;
+    public int ProjectileDamage {
         get {
             return _projectileDamage;
         }
@@ -50,8 +70,10 @@ public class PlayerStats : BaseEntityStats
     public float JumpDuration { get; set; }
     public float JumpCooldown { get; set; }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         ProjectileDamage = initialProjectileDamage;
         ProjectileCooldown = initialProjectileCooldown;
         ProjectileSpeed = initialProjectileSpeed;

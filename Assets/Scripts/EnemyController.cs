@@ -14,6 +14,7 @@ public class EnemyController : BaseEntityController
 
     private GameManager gameManager;
     private Rigidbody2D playerRb2d;
+    private PlayerStats playerStats;
 
     public Sprite CurrentSprite;
     public Sprite Sprite1;
@@ -37,12 +38,17 @@ public class EnemyController : BaseEntityController
 
     public ItemType Type { get; private set; }
 
-    new void Start()
+    private EnemyStats stats;
+
+    protected override void Start()
     {
         base.Start();
 
+        stats = GetComponent<EnemyStats>();
+
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 
         spriteRenderer = ItemPrefab.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = CurrentSprite;
@@ -53,7 +59,7 @@ public class EnemyController : BaseEntityController
 
     void Update()
     {
-        if (Health <= 0)
+        if (stats.Health <= 0)
         {
             gameManager.Score += 100;
             GiveItem();
@@ -70,8 +76,7 @@ public class EnemyController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-            Health -= player.Damage;
+            stats.Health -= playerStats.ProjectileDamage;
         }
     }
 
@@ -100,7 +105,7 @@ public class EnemyController : BaseEntityController
 
             Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-            rb2d.velocity = direction * speed;
+            rb2d.velocity = direction * stats.MovementSpeed;
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             rb2d.rotation = angle;

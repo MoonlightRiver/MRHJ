@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 212500712826174220}
   - component: {fileID: 50574441520716716}
   - component: {fileID: 58406435707211268}
-  - component: {fileID: 114380646170975302}
+  - component: {fileID: 114258770550704654}
+  - component: {fileID: 114678478301559696}
   m_Layer: 0
   m_Name: Food
   m_TagString: Enemy
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114380646170975302
+--- !u!114 &114258770550704654
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,9 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88c1da076020574e8804afc883018d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 114003413430267338}
-  startHealth: 100
-  speed: 0
   despawnDistance: 10
 --- !u!114 &114676400439469034
 MonoBehaviour:
@@ -199,6 +197,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114678478301559696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381801063415786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d679df6cb940a94195ed864b09813a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 114003413430267338}
+  initialMaxHealth: 100
+  initialMovementSpeed: 0
 --- !u!212 &212500712826174220
 SpriteRenderer:
   m_ObjectHideFlags: 1

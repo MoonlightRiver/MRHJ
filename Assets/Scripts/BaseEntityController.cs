@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public abstract class BaseEntityController : MonoBehaviour
 {
+    public float despawnDistance;
+
     protected Rigidbody2D rb2d;
     private RectTransform canvasRectTransform;
 
-    protected void Start()
+    protected virtual void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         canvasRectTransform = GetComponentInChildren<RectTransform>();

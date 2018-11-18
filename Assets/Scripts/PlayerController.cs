@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerController : BaseEntityController
 {
     public GameObject projectilePrefab;
-    public GameObject playerPrefab;
     public Text jumpText;
     public Text panelJumpText;
 
@@ -34,7 +33,7 @@ public class PlayerController : BaseEntityController
         }
     }
 
-    new void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -42,12 +41,12 @@ public class PlayerController : BaseEntityController
 
         shootElapsed = 0;
 
-        jumpElapsed = 0;
+        jumpElapsed = float.PositiveInfinity;
         IsJumping = false;
 
         // Will be removed
         transformElapsed = 0.1f;
-        spriteRenderer = playerPrefab.GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = Sprite1;
     }
 

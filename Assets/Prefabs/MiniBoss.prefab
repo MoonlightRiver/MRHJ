@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 50748606478306278}
   - component: {fileID: 58753256836540072}
   - component: {fileID: 114225323517741460}
+  - component: {fileID: 114611562593728004}
   m_Layer: 0
   m_Name: MiniBoss
   m_TagString: Enemy
@@ -158,9 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cb9f8fb2dd8c14d99e0ab318a1b7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 114028947772995340}
-  startHealth: 1000
-  speed: 4.5
   despawnDistance: Infinity
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
@@ -168,7 +166,7 @@ MonoBehaviour:
   moveInterval: 1.5
   shootPlayerInterval: 0.4
   projectileLifetime: 3
-  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
   Sprite1: {fileID: 21300000, guid: 4bfe82ceb21eab64b931f44d3c054ab5, type: 3}
   Sprite2: {fileID: 21300000, guid: f473ce43c49bbab4897e9c5446a944a8, type: 3}
   Sprite3: {fileID: 21300000, guid: 1bd9eff7c813cd24b99223909ea12044, type: 3}
@@ -196,6 +194,20 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114611562593728004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418079739879050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f229d88bc68e8429b75321cee43a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 114028947772995340}
+  initialMaxHealth: 100
+  initialMovementSpeed: 5
 --- !u!114 &114995176231194516
 MonoBehaviour:
   m_ObjectHideFlags: 1

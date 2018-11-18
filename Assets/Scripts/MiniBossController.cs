@@ -15,6 +15,7 @@ public class MiniBossController : BaseEntityController
 
     private GameManager gameManager;
     private Rigidbody2D playerRb2d;
+    private PlayerStats playerStats;
 
     public Sprite CurrentSprite;
     public Sprite Sprite1;
@@ -27,12 +28,17 @@ public class MiniBossController : BaseEntityController
     
     public BuffType TypeBf { get; private set; }
 
-    new void Start()
+    private MiniBossStats stats;
+
+    protected override void Start()
     {
         base.Start();
 
+        stats = GetComponent<MiniBossStats>();
+
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 
         spriteRenderer = ItemPrefab.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = CurrentSprite;
@@ -43,7 +49,7 @@ public class MiniBossController : BaseEntityController
 
     void Update()
     {
-        if (Health <= 0)
+        if (stats.Health <= 0)
         {
             gameManager.Score += 500;
             GiveItem();
@@ -60,8 +66,7 @@ public class MiniBossController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-            Health -= player.Damage;
+            stats.Health -= playerStats.ProjectileDamage;
         }
     }
 
@@ -85,7 +90,7 @@ public class MiniBossController : BaseEntityController
 
             Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-            rb2d.velocity = direction * speed;
+            rb2d.velocity = direction * stats.MovementSpeed;
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
             rb2d.rotation = angle;
