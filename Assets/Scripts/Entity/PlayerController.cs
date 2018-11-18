@@ -165,7 +165,7 @@ public class PlayerController : BaseEntityController
         else if (col.gameObject.tag == "Basic Item")
         {
             BasicItemController item = col.gameObject.GetComponent<BasicItemController>();
-            stats.ItemEffect(item.Type);
+            stats.ApplyBasicItemEffect(item.Type);
         }
         else if (col.gameObject.tag == "Redzone")
         {

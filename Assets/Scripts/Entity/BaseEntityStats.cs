@@ -16,7 +16,7 @@ public abstract class BaseEntityStats : MonoBehaviour
             return _health;
         }
         set {
-            _health = value;
+            _health = Mathf.Min(value, MaxHealth);
 
             healthText.text = string.Format("HP: {0}/{1}", Health, MaxHealth);
         }

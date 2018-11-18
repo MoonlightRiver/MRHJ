@@ -91,69 +91,69 @@ public class PlayerStats : BaseEntityStats
         JumpCooldown = initialJumpCooldown;
     }
 
-    public void ItemEffect(BasicItemType Type)
+    public void ApplyBasicItemEffect(BasicItemType Type)
     {
         switch (Type)
         {
             case BasicItemType.Heal:
-                int healAmount = (int)(MaxHealth * 0.7);
-                if (MaxHealth < Health + healAmount)
-                {
-                    healAmount = MaxHealth - Health;
-                }
+                int healAmount = Mathf.RoundToInt(MaxHealth * 0.7f);
                 Health += healAmount;
-                Debug.Log("Healed " + healAmount.ToString() + " HP.");
+                Debug.Log("BasicItem Heal: +" + healAmount);
                 break;
 
             case BasicItemType.MaxHealthIncrease:
-                if (MaxHealth < 200)
+                if (MaxHealth < 2 * initialMaxHealth)
                 {
                     MaxHealth += 5;
+                    Health += 5;
                 }
-                Health += 5;
-                Debug.Log("MaxHP is now " + MaxHealth.ToString() + ".");
+                Debug.Log("BasicItem MaxHealthIncrease: -> " + MaxHealth);
                 break;
 
             case BasicItemType.MoveSpeedIncrease:
-                if (MoveSpeed < 400)
+                if (MoveSpeed < initialMoveSpeed + 20 * 5)
                 {
                     MoveSpeed += 5;
                 }
-                Debug.Log("Mspeed is now " + MoveSpeed.ToString() + " px/s.");
+                Debug.Log("BasicItem MoveSpeedIncrease: -> " + MoveSpeed);
                 break;
 
             case BasicItemType.ProjectileDamageIncrease:
                 ProjectileDamage += 15;
-                Debug.Log("Rpower is now " + ProjectileDamage.ToString() + ".");
+                Debug.Log("BasicItem ProjectileDamageIncrease: -> " + ProjectileDamage);
                 break;
 
             case BasicItemType.ShootIntervalDecrease:
-                if (ShootInterval > 0.2f)
+                if (ShootInterval > initialShootInterval - 6 * 0.05f)
                 {
                     ShootInterval -= 0.05f;
                 }
-                Debug.Log("Sspeed is now " + ShootInterval + " s.");
+                Debug.Log("BasicItem ShootIntervalDecrease: -> " + ShootInterval);
                 break;
 
             case BasicItemType.ProjectileSpeedIncrease:
-                //Rspeed : Initial : 9 (540 px) Add : 0.5f (30 px) Max 18 (1080 px)
-                Debug.Log("Rspeed is now " + "540" + " px/s.");
+                // Initial: 9f (540 px/s), Add: 0.5f (30 px/s), Max: 18f (1080 px/s)
+                if (ProjectileSpeed < 18f)
+                {
+                    ProjectileSpeed += 0.5f;
+                }
+                Debug.Log("BasicItem ProjectileSpeedIncrease: -> " + ProjectileSpeed);
                 break;
             
             case BasicItemType.JumpDurationIncrease:
-                if (JumpDuration < 2)
+                if (JumpDuration < 2f)
                 {
                     JumpDuration += 0.1f;
                 }
-                Debug.Log("JumpM is now " + JumpDuration.ToString() + " s.");
+                Debug.Log("BasicItem JumpDurationIncrease: -> " + JumpDuration);
                 break;
 
             case BasicItemType.JumpCooldownDecrease:
-                if (JumpCooldown > 15)
+                if (JumpCooldown > 15f)
                 {
                     JumpCooldown -= 0.25f;
                 }
-                Debug.Log("JumpCD is now " + JumpCooldown.ToString() + " s.");
+                Debug.Log("BasicItem JumpCooldownDecrease: -> " + JumpCooldown);
                 break;
         }
     }

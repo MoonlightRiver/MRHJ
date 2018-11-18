@@ -1600,7 +1600,7 @@ MonoBehaviour:
   initialMoveSpeed: 200
   initialShootInterval: 0.5
   initialProjectileDamage: 60
-  initialProjectileSpeed: 10
+  initialProjectileSpeed: 9
   initialProjectileLifetime: 2
   initialJumpDuration: 1
   initialJumpCooldown: 20
@@ -1976,8 +1976,6 @@ MonoBehaviour:
   enemySpawnInterval: 2
   foodSpawnInterval: 10
   miniBossSpawnInterval: 30
-  redzoneCreateRadiusFrom: 2.5
-  redzoneCreateRadiusTo: 5
   redzoneCreateInterval: 30
 --- !u!4 &2047909302
 Transform:
