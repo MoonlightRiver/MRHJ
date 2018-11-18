@@ -1462,8 +1462,7 @@ GameObject:
 --- !u!114 &1520034204
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114876306399515850, guid: 0131a0fa9c8da5a4da67c480f6b668a4,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1520034203}
   m_Enabled: 1
@@ -1471,34 +1470,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99044c112de9ec546a3ac8c1021ce184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 1430355366}
-  startHealth: 100
-  speed: 200
-  despawnDistance: Infinity
-  projectilePrefab: {fileID: 1669741716146714, guid: 306b39e3de5f76d4b909688e26494e2b,
-    type: 2}
-  playerPrefab: {fileID: 1520034203}
-  HpText: {fileID: 1224231307}
-  jumpingText: {fileID: 1585284307}
-  jumpText: {fileID: 424671852}
-  RpowerText: {fileID: 2083302349}
-  RspeedText: {fileID: 148979399}
-  SspeedText: {fileID: 396831340}
-  MspeedText: {fileID: 1022473602}
-  Buff1Text: {fileID: 349700207}
-  Buff2Text: {fileID: 2139085148}
-  jumpMaintain: 1
-  jumpCooldown: 20
-  projectileLifetime: 2
-  shootCooldown: 0.5
-  maxHealth: 100
-  Damage: 60
+  healthText: {fileID: 0}
+  startHealth: 0
+  speed: 0
+  despawnDistance: 0
+  projectilePrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  HpText: {fileID: 0}
+  jumpingText: {fileID: 0}
+  jumpText: {fileID: 0}
+  RpowerText: {fileID: 0}
+  RspeedText: {fileID: 0}
+  SspeedText: {fileID: 0}
+  MspeedText: {fileID: 0}
+  Buff1Text: {fileID: 0}
+  Buff2Text: {fileID: 0}
+  jumpMaintain: 0
+  jumpCooldown: 0
+  projectileLifetime: 0
+  shootCooldown: 0
+  maxHealth: 0
+  Damage: 0
   projectile: {fileID: 0}
   transformElapsed: 0
-  Sprite1: {fileID: 21300000, guid: 9768e469ffa71cf4da0fa7406ef3df88, type: 3}
-  Sprite2: {fileID: 21300000, guid: b2043cca3d86ba14bb959b27b10a5ac1, type: 3}
-  Sprite3: {fileID: 21300000, guid: 4fedccf8c69c0e247b543b27bd4530f6, type: 3}
-  Sprite4: {fileID: 21300000, guid: 69afb7ee7eaa35c4daf631add509f6c6, type: 3}
+  Sprite1: {fileID: 0}
+  Sprite2: {fileID: 0}
+  Sprite3: {fileID: 0}
+  Sprite4: {fileID: 0}
 --- !u!58 &1520034205
 CircleCollider2D:
   m_ObjectHideFlags: 0

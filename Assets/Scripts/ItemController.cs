@@ -5,13 +5,13 @@ using UnityEngine;
 public enum ItemType
 {
     Heal,
-    ProjectileSpeedIncrease,
-    ProjectileCooldownDecrease,
-    ProjectileDamageIncrease,
+    MaxHealthIncrease,
     MovementSpeedIncrease,
+    ProjectileDamageIncrease,
+    ProjectileCooldownDecrease,
+    ProjectileSpeedIncrease,
     JumpDurationIncrease,
-    JumpCooldownDecrease,
-    MaxHealthIncrease
+    JumpCooldownDecrease
 }
 
 public class ItemController : MonoBehaviour
