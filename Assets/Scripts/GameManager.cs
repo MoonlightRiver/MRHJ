@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     public float enemySpawnInterval;
     public float foodSpawnInterval;
     public float miniBossSpawnInterval;
-    public float redzoneCreateRadiusFrom;
-    public float redzoneCreateRadiusTo;
     public float redzoneCreateInterval;
 
     private int _timeSeconds;
@@ -127,15 +125,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CreateRedzone()
     {
+        yield return new WaitForSeconds(redzoneCreateInterval);
+
         while (true)
         {
-            float radius = Random.Range(redzoneCreateRadiusFrom, redzoneCreateRadiusTo);
-            float angle = Random.Range(0f, 360f);
-            float x = radius * Mathf.Cos(angle);
-            float y = radius * Mathf.Sin(angle);
-            Vector2 createPosition = playerPosition + new Vector2(x, y);
-
-            Instantiate(redzonePrefab, createPosition, Quaternion.identity);
+            Instantiate(redzonePrefab, playerPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(redzoneCreateInterval);
         }
