@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniBossController : BaseEntityController
 {
     public GameObject projectilePrefab;
-    public GameObject ItemPrefab;
+    public GameObject itemPrefab;
 
     public float despawnDistance;
 
@@ -32,7 +32,7 @@ public class MiniBossController : BaseEntityController
         if (stats.Health <= 0)
         {
             gameManager.Score += 500;
-            Instantiate(ItemPrefab, rb2d.position, Quaternion.identity);
+            Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

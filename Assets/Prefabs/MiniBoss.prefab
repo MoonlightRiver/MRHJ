@@ -161,18 +161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
-  ItemPrefab: {fileID: 1974356637723652, guid: ae345ba74d1f80d408a273da517eb5b7, type: 2}
+  itemPrefab: {fileID: 0}
   despawnDistance: Infinity
-  moveInterval: 1.5
-  shootPlayerInterval: 0.4
-  projectileLifetime: 3
-  CurrentSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
-  Sprite1: {fileID: 21300000, guid: 4bfe82ceb21eab64b931f44d3c054ab5, type: 3}
-  Sprite2: {fileID: 21300000, guid: f473ce43c49bbab4897e9c5446a944a8, type: 3}
-  Sprite3: {fileID: 21300000, guid: 1bd9eff7c813cd24b99223909ea12044, type: 3}
-  Sprite4: {fileID: 21300000, guid: b0529da41be26d5439e05c92f2ef9b47, type: 3}
-  Sprite5: {fileID: 21300000, guid: 5954494beb7d6ea4c959a979416f783b, type: 3}
-  Sprite6: {fileID: 21300000, guid: e43e29cbf28d667448110eede29de0cd, type: 3}
 --- !u!114 &114514626101485988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +198,11 @@ MonoBehaviour:
   healthText: {fileID: 114028947772995340}
   initialMaxHealth: 1000
   initialMoveSpeed: 5
+  initialMoveInterval: 2
+  initialShootInterval: 1
+  initialProjectileDamage: 25
+  initialProjectileSpeed: 5
+  initialProjectileLifetime: 2
 --- !u!114 &114995176231194516
 MonoBehaviour:
   m_ObjectHideFlags: 1
