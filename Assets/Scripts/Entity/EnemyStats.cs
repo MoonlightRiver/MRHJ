@@ -17,7 +17,6 @@ public class EnemyStats : BaseEntityStats
     public int ProjectileDamage { get; set; }
     public float ProjectileSpeed { get; set; }
     public float ProjectileLifetime { get; set; }
-    public float ItemDropRate { get; set; }
 
     protected override void Start()
     {

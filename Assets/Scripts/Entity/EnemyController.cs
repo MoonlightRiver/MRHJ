@@ -12,7 +12,6 @@ public class EnemyController : BaseEntityController
     private GameManager gameManager;
     private EnemyStats stats;
     private Rigidbody2D playerRb2d;
-    private PlayerStats playerStats;
 
     protected override void Start()
     {
@@ -21,7 +20,6 @@ public class EnemyController : BaseEntityController
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         stats = GetComponent<EnemyStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 
         StartCoroutine(Move());
         StartCoroutine(ShootPlayer());
@@ -46,7 +44,7 @@ public class EnemyController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            stats.Health -= playerStats.ProjectileDamage;
+            stats.Health -= col.GetComponent<PlayerProjectileController>().Damage;
         }
     }
 

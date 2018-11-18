@@ -161,8 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
-  itemPrefab: {fileID: 0}
-  despawnDistance: Infinity
+  itemPrefab: {fileID: 1974356637723652, guid: fe808c356a46e0b4cbcdff7f5f89ccac, type: 2}
 --- !u!114 &114514626101485988
 MonoBehaviour:
   m_ObjectHideFlags: 1

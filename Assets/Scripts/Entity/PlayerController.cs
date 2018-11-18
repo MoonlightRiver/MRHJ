@@ -53,6 +53,11 @@ public class PlayerController : BaseEntityController
 
     void Update()
     {
+        if (stats.Health <= 0)
+        {
+            // Game over
+        }
+
         MoveAndRotate();
         Jump();
         Shoot();
@@ -140,7 +145,6 @@ public class PlayerController : BaseEntityController
             {
                 Debug.Log("회피 성공.");
             }
-            CheckGameOver();
             Destroy(col.gameObject);
         }
     }
@@ -157,9 +161,8 @@ public class PlayerController : BaseEntityController
             {
                 Debug.Log("회피 성공.");
             }
-            CheckGameOver();
         }
-        else if (col.gameObject.tag == "Item")
+        else if (col.gameObject.tag == "Basic Item")
         {
             BasicItemController item = col.gameObject.GetComponent<BasicItemController>();
             stats.ItemEffect(item.Type);
@@ -167,14 +170,6 @@ public class PlayerController : BaseEntityController
         else if (col.gameObject.tag == "Redzone")
         {
             stats.Health = 0; //Instant death
-        }
-    }
-
-    private void CheckGameOver()
-    {
-        if (stats.Health <= 0)
-        {
-            //Debug.LogError("Game Over");
         }
     }
 

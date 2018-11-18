@@ -7,12 +7,9 @@ public class MiniBossController : BaseEntityController
     public GameObject projectilePrefab;
     public GameObject itemPrefab;
 
-    public float despawnDistance;
-
     private GameManager gameManager;
     private MiniBossStats stats;
     private Rigidbody2D playerRb2d;
-    private PlayerStats playerStats;
 
     protected override void Start()
     {
@@ -21,7 +18,6 @@ public class MiniBossController : BaseEntityController
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         stats = GetComponent<MiniBossStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
-        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 
         StartCoroutine(Move());
         StartCoroutine(ShootPlayer());
@@ -35,18 +31,13 @@ public class MiniBossController : BaseEntityController
             Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
             Destroy(gameObject);
         }
-
-        if ((rb2d.position - playerRb2d.position).magnitude >= despawnDistance)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            stats.Health -= playerStats.ProjectileDamage;
+            stats.Health -= col.GetComponent<PlayerProjectileController>().Damage;
         }
     }
 
