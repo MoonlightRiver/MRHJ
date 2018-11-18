@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 114003413430267338}
-  initialMaxHealth: 0
+  initialMaxHealth: 100
   initialMovementSpeed: 0
 --- !u!212 &212500712826174220
 SpriteRenderer:

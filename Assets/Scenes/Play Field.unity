@@ -1964,25 +1964,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1639976743069064, guid: ebcdc5f12bf9aea4bb7dac3d4136a2e3,
     type: 2}
-  MiniBossPrefab: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd,
-    type: 2}
   foodPrefab: {fileID: 1381801063415786, guid: 8e5b66948215e6842abb9a84f357880a, type: 2}
+  miniBossPrefab: {fileID: 0}
   redzonePrefab: {fileID: 1010435434162748, guid: aa4154fe83a77dd48911a7d0513254f1,
     type: 2}
-  player: {fileID: 1520034203}
   timeText: {fileID: 1129103742}
   scoreText: {fileID: 41205461}
   timeScorePerSecond: 10
-  enemySpawnRadiusFrom: 2.5
-  enemySpawnRadiusTo: 5
+  spawnRadiusFrom: 2.5
+  spawnRadiusTo: 5
   enemySpawnInterval: 2
-  foodSpawnRadiusFrom: 2.5
-  foodSpawnRadiusTo: 5
   foodSpawnInterval: 10
+  miniBossSpawnInterval: 0
   redzoneCreateRadiusFrom: 2.5
   redzoneCreateRadiusTo: 5
   redzoneCreateInterval: 30
-  MiniBossSpawnInterval: 20
 --- !u!4 &2047909302
 Transform:
   m_ObjectHideFlags: 0

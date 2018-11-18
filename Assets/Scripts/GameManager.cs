@@ -6,50 +6,50 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject MiniBossPrefab;
     public GameObject foodPrefab;
+    public GameObject miniBossPrefab;
     public GameObject redzonePrefab;
-    public GameObject player;
     public Text timeText;
     public Text scoreText;
+
     public int timeScorePerSecond;
-    public float enemySpawnRadiusFrom;
-    public float enemySpawnRadiusTo;
+    public float spawnRadiusFrom;
+    public float spawnRadiusTo;
     public float enemySpawnInterval;
-    public float foodSpawnRadiusFrom;
-    public float foodSpawnRadiusTo;
     public float foodSpawnInterval;
+    public float miniBossSpawnInterval;
     public float redzoneCreateRadiusFrom;
     public float redzoneCreateRadiusTo;
     public float redzoneCreateInterval;
-    public float MiniBossSpawnInterval;
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
-    private int timeSeconds;
+    private int _timeSeconds;
     public int TimeSeconds {
         get {
-            return timeSeconds;
+            return _timeSeconds;
         }
         set {
-            timeSeconds = value;
-            timeText.text = timeText.text = string.Format("{0:d2}:{1:d2}", timeSeconds / 60, timeSeconds % 60);
+            _timeSeconds = value;
+
+            timeText.text = timeText.text = string.Format("{0:d2}:{1:d2}", TimeSeconds / 60, TimeSeconds % 60);
         }
     }
-    private int score;
+    private int _score;
     public int Score {
         get {
-            return score;
+            return _score;
         }
         set {
-            score = value;
-            scoreText.text = string.Format("{0:n0}", score);
+            _score = value;
+
+            scoreText.text = string.Format("{0:n0}", Score);
         }
     }
 
     void Start()
     {
-        playerRb2d = player.GetComponent<Rigidbody2D>();
+        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
         TimeSeconds = 0;
         Score = 0;
 
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            float radius = Random.Range(enemySpawnRadiusFrom, enemySpawnRadiusTo);
+            float radius = Random.Range(spawnRadiusFrom, spawnRadiusTo);
             float angle = Random.Range(0f, 360f);
             float x = radius * Mathf.Cos(angle);
             float y = radius * Mathf.Sin(angle);
@@ -91,27 +91,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnMiniBoss()
-    {
-        while (true)
-        {
-            float radius = Random.Range(enemySpawnRadiusFrom, enemySpawnRadiusTo);
-            float angle = Random.Range(0f, 360f);
-            float x = radius * Mathf.Cos(angle);
-            float y = radius * Mathf.Sin(angle);
-            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
-
-            Instantiate(MiniBossPrefab, spawnPosition, Quaternion.identity);
-
-            yield return new WaitForSeconds(MiniBossSpawnInterval);
-        }
-    }
-
     private IEnumerator SpawnFood()
     {
         while (true)
         {
-            float radius = Random.Range(foodSpawnRadiusFrom, foodSpawnRadiusTo);
+            float radius = Random.Range(spawnRadiusFrom, spawnRadiusTo);
             float angle = Random.Range(0f, 360f);
             float x = radius * Mathf.Cos(angle);
             float y = radius * Mathf.Sin(angle);
@@ -120,6 +104,22 @@ public class GameManager : MonoBehaviour
             Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(foodSpawnInterval);
+        }
+    }
+
+    private IEnumerator SpawnMiniBoss()
+    {
+        while (true)
+        {
+            float radius = Random.Range(spawnRadiusFrom, spawnRadiusTo);
+            float angle = Random.Range(0f, 360f);
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            Vector2 spawnPosition = playerPosition + new Vector2(x, y);
+
+            Instantiate(miniBossPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(miniBossSpawnInterval);
         }
     }
 
