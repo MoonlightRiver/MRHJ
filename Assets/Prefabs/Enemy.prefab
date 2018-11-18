@@ -144,7 +144,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Health Text
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 114180738107376976}
   initialMaxHealth: 100
-  initialMovementSpeed: 500
+  initialMovementSpeed: 5
 --- !u!114 &114821092579831098
 MonoBehaviour:
   m_ObjectHideFlags: 1

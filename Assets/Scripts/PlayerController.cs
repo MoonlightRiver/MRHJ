@@ -19,11 +19,12 @@ public class PlayerController : BaseEntityController
         }
         set {
             _isJumping = value;
+
             float jumpRest = stats.JumpCooldown - jumpElapsed;
             if(jumpRest > 0)
             {
-                jumpText.text = _isJumping ? "Jumping" : string.Format("Cooldown: {0:f1}", jumpRest);
-                panelJumpText.text = _isJumping ? string.Format("Jumping : {0:f1}", stats.JumpDuration - jumpElapsed) : string.Format("Cooldown: {0:f1}", jumpRest);
+                jumpText.text = IsJumping ? "Jumping" : string.Format("Cooldown: {0:f1}", jumpRest);
+                panelJumpText.text = IsJumping ? string.Format("Jumping : {0:f1}", stats.JumpDuration - jumpElapsed) : string.Format("Cooldown: {0:f1}", jumpRest);
             }
             else
             {

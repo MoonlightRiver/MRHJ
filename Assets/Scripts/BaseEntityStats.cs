@@ -17,7 +17,8 @@ public class BaseEntityStats : MonoBehaviour
         }
         set {
             _health = value;
-            healthText.text = string.Format("HP: {0}/{1}", _health, MaxHealth);
+
+            healthText.text = string.Format("HP: {0}/{1}", Health, MaxHealth);
         }
     }
     public int MaxHealth { get; set; }
