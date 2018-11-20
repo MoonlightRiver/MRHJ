@@ -2,28 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniBossController : BaseEntityController
+public class MiniBossController : EnemyController
 {
-    public GameObject projectilePrefab;
-    public GameObject itemPrefab;
-
-    private GameManager gameManager;
-    private MiniBossStats stats;
-    private Rigidbody2D playerRb2d;
-
-    protected override void Start()
-    {
-        base.Start();
-
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        stats = GetComponent<MiniBossStats>();
-        playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
-
-        StartCoroutine(Move());
-        StartCoroutine(ShootPlayer());
-    }
-
-    void Update()
+    protected override void Update()
     {
         if (stats.Health <= 0)
         {
@@ -33,16 +14,9 @@ public class MiniBossController : BaseEntityController
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    protected override IEnumerator Move()
     {
-        if (col.gameObject.tag == "Player Projectile")
-        {
-            stats.Health -= col.GetComponent<PlayerProjectileController>().Damage;
-        }
-    }
-
-    private IEnumerator Move()
-    {
+        // Can be edited to produce behaviors different from enemies
         while (true)
         {
             float horizontal = Random.Range(-1f, 1f);
@@ -59,8 +33,9 @@ public class MiniBossController : BaseEntityController
         }
     }
 
-    private IEnumerator ShootPlayer()
+    protected override IEnumerator ShootPlayer()
     {
+        // Can be edited to produce behaviors different from enemies
         while (true)
         {
             GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);

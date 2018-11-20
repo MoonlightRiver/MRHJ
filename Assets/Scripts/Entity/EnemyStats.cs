@@ -48,6 +48,6 @@ public class EnemyStats : BaseEntityStats
         {
             ProjectileDamage = 40;
         }
-        Debug.Log("Reinforced");
+        //Debug.Log("Reinforced");
     }
 }
