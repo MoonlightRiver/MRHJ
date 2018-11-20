@@ -1453,6 +1453,7 @@ GameObject:
   - component: {fileID: 1520034205}
   - component: {fileID: 1520034204}
   - component: {fileID: 1520034209}
+  - component: {fileID: 1520034210}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1475,11 +1476,6 @@ MonoBehaviour:
     type: 2}
   jumpText: {fileID: 1585284307}
   panelJumpText: {fileID: 424671852}
-  transformElapsed: 0
-  Sprite1: {fileID: 21300000, guid: 9768e469ffa71cf4da0fa7406ef3df88, type: 3}
-  Sprite2: {fileID: 21300000, guid: b2043cca3d86ba14bb959b27b10a5ac1, type: 3}
-  Sprite3: {fileID: 21300000, guid: 4fedccf8c69c0e247b543b27bd4530f6, type: 3}
-  Sprite4: {fileID: 21300000, guid: 69afb7ee7eaa35c4daf631add509f6c6, type: 3}
 --- !u!58 &1520034205
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1604,6 +1600,24 @@ MonoBehaviour:
   initialProjectileLifetime: 2
   initialJumpDuration: 1
   initialJumpCooldown: 20
+--- !u!95 &1520034210
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520034203}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 43b7a7a8fe9be1346ac6b0e60c123b0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1585284305
 GameObject:
   m_ObjectHideFlags: 0

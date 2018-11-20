@@ -9,6 +9,8 @@ public class PlayerController : BaseEntityController
     public Text jumpText;
     public Text panelJumpText;
 
+    Animator anim;
+
     private PlayerStats stats;
     private float shootElapsed;
     private float jumpElapsed;
@@ -38,17 +40,14 @@ public class PlayerController : BaseEntityController
     {
         base.Start();
 
+        anim = GetComponent<Animator>();
+
         stats = GetComponent<PlayerStats>();
 
         shootElapsed = 0;
 
         jumpElapsed = float.PositiveInfinity;
         IsJumping = false;
-
-        // Will be removed
-        transformElapsed = 0.1f;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = Sprite1;
     }
 
     void Update()
@@ -76,16 +75,17 @@ public class PlayerController : BaseEntityController
         float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
 
         rb2d.rotation = angle;
-
-        // Will be removed
+        
         if (!(horizontal == 0 && vertical == 0))
         {
-            transformElapsed -= Time.deltaTime;
-        }
-        if (transformElapsed <= 0)
-        {
-            transformElapsed = 0.1f;
-            Transform();
+            if (IsJumping)
+            {
+                anim.SetTrigger("PlayerJump");
+            }
+            else
+            {
+                anim.SetTrigger("PlayerMove");
+            }
         }
     }
 
@@ -104,6 +104,7 @@ public class PlayerController : BaseEntityController
         if (jumpElapsed <= stats.JumpDuration)
         {
             IsJumping = true;
+            anim.SetTrigger("PlayerJump");
         }
         else
         {
@@ -170,35 +171,6 @@ public class PlayerController : BaseEntityController
         else if (col.gameObject.tag == "Redzone")
         {
             stats.Health = 0; //Instant death
-        }
-    }
-
-    // Will be removed
-    public float transformElapsed;
-    public Sprite Sprite1;
-    public Sprite Sprite2;
-    public Sprite Sprite3;
-    public Sprite Sprite4;
-
-    private SpriteRenderer spriteRenderer;
-
-    private void Transform()
-    {
-        if (spriteRenderer.sprite == Sprite1)
-        {
-            spriteRenderer.sprite = Sprite2;
-        }
-        else if (spriteRenderer.sprite == Sprite2)
-        {
-            spriteRenderer.sprite = Sprite3;
-        }
-        else if (spriteRenderer.sprite == Sprite3)
-        {
-            spriteRenderer.sprite = Sprite4;
-        }
-        else
-        {
-            spriteRenderer.sprite = Sprite1;
         }
     }
 }

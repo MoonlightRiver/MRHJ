@@ -71,7 +71,7 @@ public class PlayerStats : BaseEntityStats
         set {
             _projectileSpeed = value;
 
-            panelProjectileSpeedText.text = ProjectileSpeed.ToString() + " px/s";
+            panelProjectileSpeedText.text = (ProjectileSpeed * 60).ToString() + " px/s";
         }
     }
     public float ProjectileLifetime { get; set; }
@@ -137,7 +137,7 @@ public class PlayerStats : BaseEntityStats
                 {
                     ProjectileSpeed += 0.5f;
                 }
-                Debug.Log("BasicItem ProjectileSpeedIncrease: -> " + ProjectileSpeed);
+                Debug.Log("BasicItem ProjectileSpeedIncrease: -> " + ProjectileSpeed * 60);
                 break;
             
             case BasicItemType.JumpDurationIncrease:
