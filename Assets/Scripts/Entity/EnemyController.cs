@@ -12,6 +12,7 @@ public class EnemyController : BaseEntityController
     protected GameManager gameManager;
     protected EnemyStats stats;
     protected Rigidbody2D playerRb2d;
+    protected Vector2 moveDirection;
 
     protected override void Start()
     {
@@ -21,11 +22,11 @@ public class EnemyController : BaseEntityController
         stats = GetComponent<EnemyStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
-        StartCoroutine(Move());
+        StartCoroutine(DecideMoveDirection());
         StartCoroutine(ShootPlayer());
     }
 
-    protected virtual void Update()
+    void Update()
     {
         if (stats.Health <= 0)
         {
@@ -38,6 +39,10 @@ public class EnemyController : BaseEntityController
         {
             Destroy(gameObject);
         }
+
+        rb2d.velocity = moveDirection * stats.MoveSpeed;
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
+        rb2d.rotation = angle;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D col)
@@ -48,19 +53,13 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    protected virtual IEnumerator Move()
+    protected virtual IEnumerator DecideMoveDirection()
     {
         while (true)
         {
             float horizontal = Random.Range(-1f, 1f);
             float vertical = Random.Range(-1f, 1f);
-
-            Vector2 direction = new Vector2(horizontal, vertical).normalized;
-
-            rb2d.velocity = direction * stats.MoveSpeed;
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-            rb2d.rotation = angle;
+            moveDirection = new Vector2(horizontal, vertical).normalized;
 
             yield return new WaitForSeconds(stats.MoveInterval);
         }

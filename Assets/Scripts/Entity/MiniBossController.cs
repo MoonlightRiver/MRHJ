@@ -4,30 +4,14 @@ using UnityEngine;
 
 public class MiniBossController : EnemyController
 {
-    protected override void Update()
-    {
-        if (stats.Health <= 0)
-        {
-            gameManager.Score += 500;
-            Instantiate(itemPrefab, rb2d.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-    }
-
-    protected override IEnumerator Move()
+    protected override IEnumerator DecideMoveDirection()
     {
         // Can be edited to produce behaviors different from enemy
         while (true)
         {
             float horizontal = Random.Range(-1f, 1f);
             float vertical = Random.Range(-1f, 1f);
-
-            Vector2 direction = new Vector2(horizontal, vertical).normalized;
-
-            rb2d.velocity = direction * stats.MoveSpeed;
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-            rb2d.rotation = angle;
+            moveDirection = new Vector2(horizontal, vertical).normalized;
 
             yield return new WaitForSeconds(stats.MoveInterval);
         }
