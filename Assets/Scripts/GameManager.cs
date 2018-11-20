@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         {
             TimeSeconds += 1;
             Score += timeScorePerSecond;
-            Wave = 1 + TimeSeconds / waveIncreaseInterval;
+            Wave = Mathf.Min(1 + TimeSeconds / waveIncreaseInterval, 5);
             yield return new WaitForSeconds(1);
         }
     }
