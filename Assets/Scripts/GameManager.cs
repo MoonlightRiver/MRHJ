@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject redzonePrefab;
     public Text timeText;
     public Text scoreText;
+    public Text waveText;
 
     public int timeScorePerSecond;
     public float spawnRadiusFrom;
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     public float foodSpawnInterval;
     public float miniBossSpawnInterval;
     public float redzoneCreateInterval;
+
+    public int wave;
 
     private int _timeSeconds;
     private int _score;
@@ -29,10 +32,15 @@ public class GameManager : MonoBehaviour
         }
         set {
             _timeSeconds = value;
+            wave = 1 + (int)(_timeSeconds / 5);
 
-            timeText.text = timeText.text = string.Format("{0:d2}:{1:d2}", TimeSeconds / 60, TimeSeconds % 60);
+            timeText.text = string.Format("{0:d2}:{1:d2}", TimeSeconds / 60, TimeSeconds % 60);
+            waveText.text = "Wave " + wave.ToString();
         }
     }
+
+
+
     public int Score {
         get {
             return _score;

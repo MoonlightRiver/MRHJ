@@ -29,4 +29,25 @@ public class EnemyStats : BaseEntityStats
         ProjectileSpeed = initialProjectileSpeed;
         ProjectileLifetime = initialProjectileLifetime;
     }
+
+    public void WaveReinforce(int wave) // Not working well.
+    {
+        if(wave == 2)
+        {
+            //health..어딨어요?
+        }
+        else if(wave == 3)
+        {
+            ProjectileDamage = 33;
+        }
+        else if(wave == 4)
+        {
+            //health..
+        }
+        else // wave >= 5
+        {
+            ProjectileDamage = 40;
+        }
+        Debug.Log("Reinforced");
+    }
 }
