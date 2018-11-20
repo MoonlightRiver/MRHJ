@@ -2132,13 +2132,13 @@ MonoBehaviour:
   scoreText: {fileID: 41205461}
   waveText: {fileID: 555212035}
   timeScorePerSecond: 10
+  waveIncreaseInterval: 5
   spawnRadiusFrom: 2.5
   spawnRadiusTo: 5
   enemySpawnInterval: 2
   foodSpawnInterval: 10
   miniBossSpawnInterval: 30
   redzoneCreateInterval: 30
-  wave: 0
 --- !u!4 &2047909302
 Transform:
   m_ObjectHideFlags: 0

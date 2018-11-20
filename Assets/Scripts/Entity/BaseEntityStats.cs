@@ -11,6 +11,7 @@ public abstract class BaseEntityStats : MonoBehaviour
 
     private int _health;
 
+    public int MaxHealth { get; set; }
     public virtual int Health {
         get {
             return _health;
@@ -21,7 +22,6 @@ public abstract class BaseEntityStats : MonoBehaviour
             healthText.text = string.Format("HP: {0}/{1}", Health, MaxHealth);
         }
     }
-    public int MaxHealth { get; set; }
 
     protected virtual void Start()
     {

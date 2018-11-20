@@ -9,7 +9,6 @@ public class EnemyController : BaseEntityController
 
     public float despawnDistance;
 
-    protected int currentWave;
     protected GameManager gameManager;
     protected EnemyStats stats;
     protected Rigidbody2D playerRb2d;
@@ -19,13 +18,11 @@ public class EnemyController : BaseEntityController
         base.Start();
 
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        currentWave = gameManager.wave;
         stats = GetComponent<EnemyStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
         StartCoroutine(Move());
         StartCoroutine(ShootPlayer());
-        StartCoroutine(NextWave());
     }
 
     protected virtual void Update()
@@ -48,20 +45,6 @@ public class EnemyController : BaseEntityController
         if (col.gameObject.tag == "Player Projectile")
         {
             stats.Health -= col.GetComponent<PlayerProjectileController>().Damage;
-        }
-    }
-
-    protected virtual IEnumerator NextWave()
-    {
-        while (true)
-        {
-            if (currentWave != gameManager.wave)
-            {
-                currentWave = gameManager.wave;
-                stats.WaveReinforce(currentWave);
-            }
-
-            yield return new WaitForSeconds(1);
         }
     }
 

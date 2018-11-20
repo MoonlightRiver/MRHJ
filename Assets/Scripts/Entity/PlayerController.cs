@@ -161,7 +161,7 @@ public class PlayerController : BaseEntityController
         {
             if (!IsJumping)
             {
-                stats.Health -= 25;
+                stats.Health -= col.GetComponent<EnemyProjectileController>().Damage;
             }
             else
             {
@@ -170,7 +170,7 @@ public class PlayerController : BaseEntityController
         }
         else if (col.gameObject.tag == "Basic Item")
         {
-            BasicItemController item = col.gameObject.GetComponent<BasicItemController>();
+            BasicItemController item = col.GetComponent<BasicItemController>();
             stats.ApplyBasicItemEffect(item.Type);
         }
         else if (col.gameObject.tag == "Redzone")

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Text waveText;
 
     public int timeScorePerSecond;
+    public int waveIncreaseInterval;
     public float spawnRadiusFrom;
     public float spawnRadiusTo;
     public float enemySpawnInterval;
@@ -21,10 +22,9 @@ public class GameManager : MonoBehaviour
     public float miniBossSpawnInterval;
     public float redzoneCreateInterval;
 
-    public int wave;
-
     private int _timeSeconds;
     private int _score;
+    private int _wave;
 
     public int TimeSeconds {
         get {
@@ -32,15 +32,10 @@ public class GameManager : MonoBehaviour
         }
         set {
             _timeSeconds = value;
-            wave = 1 + (int)(_timeSeconds / 5);
-
+            
             timeText.text = string.Format("{0:d2}:{1:d2}", TimeSeconds / 60, TimeSeconds % 60);
-            waveText.text = "Wave " + wave.ToString();
         }
     }
-
-
-
     public int Score {
         get {
             return _score;
@@ -51,6 +46,16 @@ public class GameManager : MonoBehaviour
             scoreText.text = string.Format("{0:n0}", Score);
         }
     }
+    public int Wave {
+        get {
+            return _wave;
+        }
+        set {
+            _wave = value;
+
+            waveText.text = "Wave " + Wave.ToString();
+        }
+    }
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -59,9 +64,11 @@ public class GameManager : MonoBehaviour
     {
         TimeSeconds = 0;
         Score = 0;
+        Wave = 1;
+
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
-        StartCoroutine(UpdateTimeSeconds());
+        StartCoroutine(UpdateTime());
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnMiniBoss());
         StartCoroutine(SpawnFood());
@@ -73,12 +80,13 @@ public class GameManager : MonoBehaviour
         playerPosition = playerRb2d.position;
     }
 
-    private IEnumerator UpdateTimeSeconds()
+    private IEnumerator UpdateTime()
     {
         while (true)
         {
             TimeSeconds += 1;
             Score += timeScorePerSecond;
+            Wave = 1 + TimeSeconds / waveIncreaseInterval;
             yield return new WaitForSeconds(1);
         }
     }

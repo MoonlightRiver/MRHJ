@@ -28,26 +28,38 @@ public class EnemyStats : BaseEntityStats
         ProjectileDamage = initialProjectileDamage;
         ProjectileSpeed = initialProjectileSpeed;
         ProjectileLifetime = initialProjectileLifetime;
+
+        WaveReinforce();
     }
 
-    public void WaveReinforce(int wave) // Not working well.
+    protected virtual void WaveReinforce()
     {
-        if(wave == 2)
+        int wave = GameObject.FindWithTag("GameController").GetComponent<GameManager>().Wave;
+
+        switch (wave)
         {
-            //health..어딨어요?
+            case 2:
+                MaxHealth = 125;
+                Health = 125;
+                break;
+
+            case 3:
+                MaxHealth = 150;
+                Health = 150;
+                ProjectileDamage = 33;
+                break;
+
+            case 4:
+                MaxHealth = 175;
+                Health = 175;
+                ProjectileDamage = 33;
+                break;
+
+            case 5:
+                MaxHealth = 200;
+                Health = 200;
+                ProjectileDamage = 40;
+                break;
         }
-        else if(wave == 3)
-        {
-            ProjectileDamage = 33;
-        }
-        else if(wave == 4)
-        {
-            //health..
-        }
-        else // wave >= 5
-        {
-            ProjectileDamage = 40;
-        }
-        //Debug.Log("Reinforced");
     }
 }

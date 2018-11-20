@@ -16,7 +16,7 @@ public class MiniBossController : EnemyController
 
     protected override IEnumerator Move()
     {
-        // Can be edited to produce behaviors different from enemies
+        // Can be edited to produce behaviors different from enemy
         while (true)
         {
             float horizontal = Random.Range(-1f, 1f);
@@ -35,7 +35,7 @@ public class MiniBossController : EnemyController
 
     protected override IEnumerator ShootPlayer()
     {
-        // Can be edited to produce behaviors different from enemies
+        // Can be edited to produce behaviors different from enemy
         while (true)
         {
             GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
