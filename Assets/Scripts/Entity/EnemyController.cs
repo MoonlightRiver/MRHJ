@@ -9,10 +9,10 @@ public class EnemyController : BaseEntityController
 
     public float despawnDistance;
 
-    private int currentWave;
-    private GameManager gameManager;
-    private EnemyStats stats;
-    private Rigidbody2D playerRb2d;
+    protected int currentWave;
+    protected GameManager gameManager;
+    protected EnemyStats stats;
+    protected Rigidbody2D playerRb2d;
 
     protected override void Start()
     {
@@ -25,10 +25,10 @@ public class EnemyController : BaseEntityController
 
         StartCoroutine(Move());
         StartCoroutine(ShootPlayer());
-        StartCoroutine(NextWave());        
+        StartCoroutine(NextWave());
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (stats.Health <= 0)
         {
@@ -43,7 +43,7 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player Projectile")
         {
@@ -51,7 +51,7 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    private IEnumerator NextWave()
+    protected virtual IEnumerator NextWave()
     {
         while (true)
         {
@@ -65,7 +65,7 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    private IEnumerator Move()
+    protected virtual IEnumerator Move()
     {
         while (true)
         {
@@ -83,7 +83,7 @@ public class EnemyController : BaseEntityController
         }
     }
 
-    private IEnumerator ShootPlayer()
+    protected virtual IEnumerator ShootPlayer()
     {
         while (true)
         {

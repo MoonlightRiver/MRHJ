@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212500712826174220}
   - component: {fileID: 50574441520716716}
   - component: {fileID: 58406435707211268}
-  - component: {fileID: 114258770550704654}
   - component: {fileID: 114678478301559696}
+  - component: {fileID: 114258770550704654}
   m_Layer: 0
   m_Name: Food
   m_TagString: Enemy
@@ -92,8 +92,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
-  m_AngularDrag: 1
+  m_LinearDrag: 10
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -210,7 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 114003413430267338}
   initialMaxHealth: 100
-  initialMovementSpeed: 0
 --- !u!212 &212500712826174220
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,11 +9,6 @@ public class PlayerController : BaseEntityController
     public Text jumpText;
     public Text panelJumpText;
 
-    Animator anim;
-
-    private PlayerStats stats;
-    private float shootElapsed;
-    private float jumpElapsed;
     private bool _isJumping;
     public bool IsJumping {
         get {
@@ -36,18 +31,26 @@ public class PlayerController : BaseEntityController
         }
     }
 
+    private PlayerStats stats;
+    private Animator animator;
+    private Camera mainCamera;
+    private float shootElapsed;
+    private float jumpElapsed;
+    private bool isMoving;
+
     protected override void Start()
     {
         base.Start();
 
-        anim = GetComponent<Animator>();
-
         stats = GetComponent<PlayerStats>();
+        animator = GetComponent<Animator>();
+        mainCamera = Camera.main;
+
+        IsJumping = false;
 
         shootElapsed = 0;
-
         jumpElapsed = float.PositiveInfinity;
-        IsJumping = false;
+        isMoving = false;
     }
 
     void Update()
@@ -60,6 +63,19 @@ public class PlayerController : BaseEntityController
         MoveAndRotate();
         Jump();
         Shoot();
+
+        if (IsJumping)
+        {
+            animator.SetTrigger("playerJump");
+        }
+        else if (isMoving)
+        {
+            animator.SetTrigger("playerMove");
+        }
+        else
+        {
+            animator.SetTrigger("playerIdle");
+        }
     }
 
     private void MoveAndRotate()
@@ -70,23 +86,13 @@ public class PlayerController : BaseEntityController
 
         rb2d.velocity = stats.MoveSpeed / 60f * direction.normalized;
 
-        float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+        float cameraDistance = mainCamera.transform.position.z - gameObject.transform.position.z;
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
         float angle = Mathf.Atan2(mousePosition.y - rb2d.position.y, mousePosition.x - rb2d.position.x) * Mathf.Rad2Deg + 90;
 
         rb2d.rotation = angle;
-        
-        if (!(horizontal == 0 && vertical == 0))
-        {
-            if (IsJumping)
-            {
-                anim.SetTrigger("PlayerJump");
-            }
-            else
-            {
-                anim.SetTrigger("PlayerMove");
-            }
-        }
+
+        isMoving = !(horizontal == 0 && vertical == 0);
     }
 
     private void Jump()
@@ -104,7 +110,6 @@ public class PlayerController : BaseEntityController
         if (jumpElapsed <= stats.JumpDuration)
         {
             IsJumping = true;
-            anim.SetTrigger("PlayerJump");
         }
         else
         {
@@ -125,8 +130,8 @@ public class PlayerController : BaseEntityController
                 GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
                 Destroy(projectile, stats.ProjectileLifetime);
 
-                float cameraDistance = Camera.main.transform.position.z - gameObject.transform.position.z;
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
+                float cameraDistance = mainCamera.transform.position.z - gameObject.transform.position.z;
+                Vector2 mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
                 Vector2 mouseDirection = mousePosition - rb2d.position;
 
                 projectile.GetComponent<PlayerProjectileController>().Initialize(stats.ProjectileSpeed, mouseDirection, stats.ProjectileDamage);

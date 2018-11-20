@@ -57,8 +57,8 @@ GameObject:
   - component: {fileID: 212640611357728106}
   - component: {fileID: 50748606478306278}
   - component: {fileID: 58753256836540072}
-  - component: {fileID: 114225323517741460}
   - component: {fileID: 114611562593728004}
+  - component: {fileID: 114225323517741460}
   m_Layer: 0
   m_Name: MiniBoss
   m_TagString: Enemy
@@ -162,6 +162,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
   itemPrefab: {fileID: 1974356637723652, guid: fe808c356a46e0b4cbcdff7f5f89ccac, type: 2}
+  despawnDistance: Infinity
 --- !u!114 &114514626101485988
 MonoBehaviour:
   m_ObjectHideFlags: 1
