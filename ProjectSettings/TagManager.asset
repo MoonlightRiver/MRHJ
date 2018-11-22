@@ -10,6 +10,7 @@ TagManager:
   - Redzone
   - Basic Item
   - Buff Item
+  - Portal
   layers:
   - Default
   - TransparentFX

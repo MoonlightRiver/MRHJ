@@ -37,7 +37,7 @@ public class FoodController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            stats.Health -= col.GetComponent<PlayerProjectileController>().Damage;
+            stats.Health -= 10;
             gameManager.Score += 30;
         }
     }
