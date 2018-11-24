@@ -12,6 +12,8 @@ public class PlayerStats : BaseEntityStats
     public Text panelProjectileSpeedText;
     public Text[] panelBuffText;
     public Image[] panelBuffImage;
+    public Text[] subpanelBuffText;
+    public Image[] subpanelBuffImage;
     public Sprite knob;
 
     public float initialMoveSpeed;
@@ -305,11 +307,15 @@ public class PlayerStats : BaseEntityStats
             {
                 panelBuffText[i].text = buffRemainingTimes[i].ToString();
                 panelBuffImage[i].sprite = buffs[i].Sprite;
+                subpanelBuffText[i].text = buffRemainingTimes[i].ToString();
+                subpanelBuffImage[i].sprite = buffs[i].Sprite;
             }
             else
             {
                 panelBuffText[i].text = "";
                 panelBuffImage[i].sprite = knob;
+                subpanelBuffText[i].text = "";
+                subpanelBuffImage[i].sprite = knob;
             }
         }
     }
