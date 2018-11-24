@@ -170,8 +170,13 @@ public class PlayerController : BaseEntityController
         }
         else if (col.gameObject.tag == "Basic Item")
         {
-            BasicItemController item = col.GetComponent<BasicItemController>();
-            stats.ApplyBasicItemEffect(item.Type);
+            BasicItemController basicItem = col.GetComponent<BasicItemController>();
+            stats.ApplyBasicItemEffect(basicItem);
+        }
+        else if (col.gameObject.tag == "Buff Item")
+        {
+            BuffItemController buffItem = col.GetComponent<BuffItemController>();
+            stats.AddBuff(buffItem);
         }
         else if (col.gameObject.tag == "Redzone")
         {

@@ -10,6 +10,9 @@ public class PlayerStats : BaseEntityStats
     public Text panelProjectileDamageText;
     public Text panelProjectileCooldownText;
     public Text panelProjectileSpeedText;
+    public Text[] panelBuffText;
+    public Image[] panelBuffImage;
+    public Sprite knob;
 
     public float initialMoveSpeed;
     public float initialShootInterval;
@@ -19,10 +22,20 @@ public class PlayerStats : BaseEntityStats
     public float initialJumpDuration;
     public float initialJumpCooldown;
 
-    private float _moveSpeed;
-    private float _shootInterval;
-    private int _projectileDamage;
-    private float _projectileSpeed;
+    private float baseMoveSpeed;
+    private float baseShootInterval;
+    private int baseProjectileDamage;
+    private float baseProjectileSpeed;
+    private float baseProjectileLifetime;
+    private float baseJumpDuration;
+    private float baseJumpCooldown;
+    private float buffMoveSpeed;
+    private float buffShootInterval;
+    private int buffProjectileDamage;
+    private float buffProjectileSpeed;
+    private float buffProjectileLifetime;
+    private float buffJumpDuration;
+    private float buffJumpCooldown;
 
     public override int Health {
         get {
@@ -36,64 +49,75 @@ public class PlayerStats : BaseEntityStats
     }
     public float MoveSpeed {
         get {
-            return _moveSpeed;
-        }
-        set {
-            _moveSpeed = value;
-
-            panelMoveSpeedText.text = MoveSpeed.ToString() + " px/s";
+            return baseMoveSpeed + buffMoveSpeed;
         }
     }
     public float ShootInterval {
         get {
-            return _shootInterval;
-        }
-        set {
-            _shootInterval = value;
-
-            panelProjectileCooldownText.text = ShootInterval.ToString() + " s";
+            return baseShootInterval + buffShootInterval;
         }
     }
     public int ProjectileDamage {
         get {
-            return _projectileDamage;
-        }
-        set {
-            _projectileDamage = value;
-
-            panelProjectileDamageText.text = ProjectileDamage.ToString();
+            return baseProjectileDamage + buffProjectileDamage;
         }
     }
     public float ProjectileSpeed {
         get {
-            return _projectileSpeed;
-        }
-        set {
-            _projectileSpeed = value;
-
-            panelProjectileSpeedText.text = (ProjectileSpeed * 60).ToString() + " px/s";
+            return baseProjectileSpeed + buffProjectileSpeed;
         }
     }
-    public float ProjectileLifetime { get; set; }
-    public float JumpDuration { get; set; }
-    public float JumpCooldown { get; set; }
+    public float ProjectileLifetime {
+        get {
+            return baseProjectileLifetime + buffProjectileLifetime;
+        }
+    }
+    public float JumpDuration {
+        get {
+            return baseJumpDuration + buffJumpDuration;
+        }
+    }
+    public float JumpCooldown {
+        get {
+            return baseJumpCooldown + buffJumpCooldown;
+        }
+    }
+
+    private List<BuffItemController> buffs;
+    private List<int> buffRemainingTimes;
+    private List<Coroutine> buffRemoveCoroutines;
 
     protected override void Start()
     {
         base.Start();
 
-        MoveSpeed = initialMoveSpeed;
-        ShootInterval = initialShootInterval;
-        ProjectileDamage = initialProjectileDamage;
-        ProjectileSpeed = initialProjectileSpeed;
-        ProjectileLifetime = initialProjectileLifetime;
-        JumpDuration = initialJumpDuration;
-        JumpCooldown = initialJumpCooldown;
+        baseMoveSpeed = initialMoveSpeed;
+        baseShootInterval = initialShootInterval;
+        baseProjectileDamage = initialProjectileDamage;
+        baseProjectileSpeed = initialProjectileSpeed;
+        baseProjectileLifetime = initialProjectileLifetime;
+        baseJumpDuration = initialJumpDuration;
+        baseJumpCooldown = initialJumpCooldown;
+
+        buffMoveSpeed = 0;
+        buffShootInterval = 0;
+        buffProjectileDamage = 0;
+        buffProjectileSpeed = 0;
+        buffProjectileLifetime = 0;
+        buffJumpDuration = 0;
+        buffJumpCooldown = 0;
+
+        buffs = new List<BuffItemController>();
+        buffRemainingTimes = new List<int>();
+        buffRemoveCoroutines = new List<Coroutine>();
+
+        UpdatePanelStats();
+        UpdatePanelBuffs();
     }
 
-    public void ApplyBasicItemEffect(BasicItemType Type)
+    public void ApplyBasicItemEffect(BasicItemController basicItem)
     {
-        switch (Type)
+        switch (basicItem.Type)
         {
             case BasicItemType.Heal:
                 int healAmount = Mathf.RoundToInt(MaxHealth * 0.7f);
@@ -111,50 +135,182 @@ public class PlayerStats : BaseEntityStats
                 break;
 
             case BasicItemType.MoveSpeedIncrease:
-                if (MoveSpeed < initialMoveSpeed + 20 * 5)
+                if (baseMoveSpeed < initialMoveSpeed + 20 * 5)
                 {
-                    MoveSpeed += 5;
+                    baseMoveSpeed += 5;
                 }
-                Debug.Log("BasicItem MoveSpeedIncrease: -> " + MoveSpeed);
-                break;
-
-            case BasicItemType.ProjectileDamageIncrease:
-                ProjectileDamage += 15;
-                Debug.Log("BasicItem ProjectileDamageIncrease: -> " + ProjectileDamage);
+                Debug.Log("BasicItem MoveSpeedIncrease: -> " + baseMoveSpeed);
                 break;
 
             case BasicItemType.ShootIntervalDecrease:
-                if (ShootInterval > initialShootInterval - 6 * 0.05f)
+                if (baseShootInterval > initialShootInterval - 6 * 0.05f)
                 {
-                    ShootInterval -= 0.05f;
+                    baseShootInterval -= 0.05f;
                 }
-                Debug.Log("BasicItem ShootIntervalDecrease: -> " + ShootInterval);
+                Debug.Log("BasicItem ShootIntervalDecrease: -> " + baseShootInterval);
+                break;
+
+            case BasicItemType.ProjectileDamageIncrease:
+                baseProjectileDamage += 15;
+                Debug.Log("BasicItem ProjectileDamageIncrease: -> " + baseProjectileDamage);
                 break;
 
             case BasicItemType.ProjectileSpeedIncrease:
                 // Initial: 9f (540 px/s), Add: 0.5f (30 px/s), Max: 18f (1080 px/s)
-                if (ProjectileSpeed < 18f)
+                if (baseProjectileSpeed < 18f)
                 {
-                    ProjectileSpeed += 0.5f;
+                    baseProjectileSpeed += 0.5f;
                 }
-                Debug.Log("BasicItem ProjectileSpeedIncrease: -> " + ProjectileSpeed * 60);
+                Debug.Log("BasicItem ProjectileSpeedIncrease: -> " + baseProjectileSpeed * 60);
                 break;
             
             case BasicItemType.JumpDurationIncrease:
-                if (JumpDuration < 2f)
+                if (baseJumpDuration < 2f)
                 {
-                    JumpDuration += 0.1f;
+                    baseJumpDuration += 0.1f;
                 }
-                Debug.Log("BasicItem JumpDurationIncrease: -> " + JumpDuration);
+                Debug.Log("BasicItem JumpDurationIncrease: -> " + baseJumpDuration);
                 break;
 
             case BasicItemType.JumpCooldownDecrease:
-                if (JumpCooldown > 15f)
+                if (baseJumpCooldown > 15f)
                 {
-                    JumpCooldown -= 0.25f;
+                    baseJumpCooldown -= 0.25f;
                 }
-                Debug.Log("BasicItem JumpCooldownDecrease: -> " + JumpCooldown);
+                Debug.Log("BasicItem JumpCooldownDecrease: -> " + baseJumpCooldown);
                 break;
+        }
+
+        UpdatePanelStats();
+    }
+
+    public void AddBuff(BuffItemController buffItem)
+    {
+        if (buffs.Count >= 2)
+        {
+            StopCoroutine(buffRemoveCoroutines[0]);
+            buffRemoveCoroutines.RemoveAt(0);
+            StartCoroutine(RemoveBuff(buffs[0], 0));
+        }
+
+        int removeAfter = 0;
+        switch (buffItem.Type)
+        {
+            case BuffItemType.AllSpeedIncrease:
+                buffMoveSpeed += 10;
+                buffShootInterval += -0.1f;
+                buffProjectileSpeed += 1;
+                removeAfter = 30;
+                break;
+
+            case BuffItemType.MoveSpeedIncrease:
+                buffMoveSpeed += 10;
+                removeAfter = 120;
+                break;
+
+            case BuffItemType.ShootIntervalDecrease:
+                buffShootInterval += -0.1f;
+                removeAfter = 120;
+                break;
+
+            case BuffItemType.ProjectileDamageIncrease:
+                buffProjectileDamage += 30;
+                removeAfter = 120;
+                break;
+
+            case BuffItemType.ProjectileSpeedIncrease:
+                buffProjectileSpeed += 1;
+                removeAfter = 120;
+                break;
+
+            case BuffItemType.Jump:
+                buffJumpDuration += 5;
+                buffJumpCooldown += -5;
+                removeAfter = 60;
+                break;
+        }
+        buffs.Add(buffItem);
+        buffRemainingTimes.Add(removeAfter);
+        buffRemoveCoroutines.Add(StartCoroutine(RemoveBuff(buffItem, removeAfter)));
+
+        UpdatePanelBuffs();
+    }
+
+    private void UpdatePanelStats()
+    {
+        panelMoveSpeedText.text = baseMoveSpeed.ToString() + " px/s";
+        panelProjectileCooldownText.text = baseShootInterval.ToString() + " s";
+        panelProjectileDamageText.text = baseProjectileDamage.ToString();
+        panelProjectileSpeedText.text = (baseProjectileSpeed * 60).ToString() + " px/s";
+    }
+
+    private IEnumerator RemoveBuff(BuffItemController buffItem, int after)
+    {
+        int index = -1;
+
+        for (int remaining = after; remaining > 0; remaining--)
+        {
+            index = buffs.IndexOf(buffItem);
+            buffRemainingTimes[index] = remaining;
+            UpdatePanelBuffs();
+
+            yield return new WaitForSeconds(1);
+        }
+        index = buffs.IndexOf(buffItem);
+        buffRemainingTimes[index] = 0;
+        UpdatePanelBuffs();
+
+        switch (buffItem.Type)
+        {
+            case BuffItemType.AllSpeedIncrease:
+                buffMoveSpeed -= 10;
+                buffShootInterval -= -0.1f;
+                buffProjectileSpeed -= 1;
+                break;
+
+            case BuffItemType.MoveSpeedIncrease:
+                buffMoveSpeed -= 10;
+                break;
+
+            case BuffItemType.ShootIntervalDecrease:
+                buffShootInterval -= -0.1f;
+                break;
+
+
+            case BuffItemType.ProjectileDamageIncrease:
+                buffProjectileDamage -= 30;
+                break;
+
+            case BuffItemType.ProjectileSpeedIncrease:
+                buffProjectileSpeed -= 1;
+                break;
+
+            case BuffItemType.Jump:
+                buffJumpDuration -= 5;
+                buffJumpCooldown -= -5;
+                break;
+        }
+
+        buffs.RemoveAt(index);
+        buffRemainingTimes.RemoveAt(index);
+
+        UpdatePanelBuffs();
+    }
+
+    private void UpdatePanelBuffs()
+    {
+        for (int i = 0; i < panelBuffText.Length; i++)
+        {
+            if (i < buffs.Count)
+            {
+                panelBuffText[i].text = buffRemainingTimes[i].ToString();
+                panelBuffImage[i].sprite = buffs[i].Sprite;
+            }
+            else
+            {
+                panelBuffText[i].text = "";
+                panelBuffImage[i].sprite = knob;
+            }
         }
     }
 }

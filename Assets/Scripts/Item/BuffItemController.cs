@@ -23,8 +23,8 @@ public class BuffItemController : BaseItemController
         {BuffItemType.ProjectileSpeedIncrease, 1},
         {BuffItemType.Jump, 1},
     };
-    private static readonly float SumDropRate = CalculateSumDropRate();
-    private static float CalculateSumDropRate()
+    private static readonly float SumOfDropRate = CalculateSumOfDropRate();
+    private static float CalculateSumOfDropRate()
     {
         float sum = 0;
         foreach (KeyValuePair<BuffItemType, float> rate in DropRate)
@@ -34,19 +34,21 @@ public class BuffItemController : BaseItemController
         return sum;
     }
 
-    public BuffItemType Type { get; set; }
+    public BuffItemType Type { get; private set; }
+    public Sprite Sprite { get; private set; }
 
     void Start()
     {
         Type = ChooseRandomType();
-        GetComponent<SpriteRenderer>().sprite = sprites[(int)Type];
+        Sprite = sprites[(int)Type];
+        GetComponent<SpriteRenderer>().sprite = Sprite;
     }
 
     private BuffItemType ChooseRandomType()
     {
         int length = System.Enum.GetNames(typeof(BuffItemType)).Length;
 
-        float randomPoint = Random.Range(0f, SumDropRate);
+        float randomPoint = Random.Range(0f, SumOfDropRate);
         for (int i = 0; i < length; i++)
         {
             float rate = DropRate[(BuffItemType)i];

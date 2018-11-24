@@ -27,8 +27,8 @@ public class BasicItemController : BaseItemController
         {BasicItemType.JumpDurationIncrease, 8},
         {BasicItemType.JumpCooldownDecrease, 8}
     };
-    private static readonly float SumDropRate = CalculateSumDropRate();
-    private static float CalculateSumDropRate()
+    private static readonly float SumOfDropRate = CalculateSumOfDropRate();
+    private static float CalculateSumOfDropRate()
     {
         float sum = 0;
         foreach (KeyValuePair<BasicItemType, float> rate in DropRate)
@@ -38,7 +38,7 @@ public class BasicItemController : BaseItemController
         return sum;
     }
 
-    public BasicItemType Type { get; set; }
+    public BasicItemType Type { get; private set; }
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class BasicItemController : BaseItemController
     {
         int length = System.Enum.GetNames(typeof(BasicItemType)).Length;
 
-        float randomPoint = Random.Range(0f, SumDropRate);
+        float randomPoint = Random.Range(0f, SumOfDropRate);
         for (int i = 0; i < length; i++)
         {
             float rate = DropRate[(BasicItemType)i];

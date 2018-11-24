@@ -2332,6 +2332,13 @@ MonoBehaviour:
   panelProjectileDamageText: {fileID: 2083302349}
   panelProjectileCooldownText: {fileID: 396831340}
   panelProjectileSpeedText: {fileID: 148979399}
+  panelBuffText:
+  - {fileID: 349700207}
+  - {fileID: 2139085148}
+  panelBuffImage:
+  - {fileID: 256863004}
+  - {fileID: 420341681}
+  knob: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   initialMoveSpeed: 200
   initialShootInterval: 0.5
   initialProjectileDamage: 60
