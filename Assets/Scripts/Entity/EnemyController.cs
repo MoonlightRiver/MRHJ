@@ -39,7 +39,10 @@ public class EnemyController : BaseEntityController
         {
             Destroy(gameObject);
         }
+    }
 
+    void FixedUpdate()
+    {
         rb2d.velocity = moveDirection * stats.MoveSpeed;
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
         rb2d.rotation = angle;
@@ -69,11 +72,23 @@ public class EnemyController : BaseEntityController
     {
         while (true)
         {
-            GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
-            Destroy(projectile, stats.ProjectileLifetime);
+            for (int i = 0; i < stats.ShootBurstNum; i++)
+            {
+                for (int j = -(stats.ShootLineNum / 2); j <= stats.ShootLineNum / 2; j++)
+                {
+                    GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
+                    Destroy(projectile, stats.ProjectileLifetime);
 
-            Vector2 playerDirection = playerRb2d.position - rb2d.position;
-            projectile.GetComponent<EnemyProjectileController>().Initialize(stats.ProjectileSpeed, playerDirection, stats.ProjectileDamage);
+                    Vector2 playerDirection = playerRb2d.position - rb2d.position;
+                    float angle = Mathf.Atan2(playerDirection.y, playerDirection.x);
+                    float radius = playerDirection.magnitude;
+                    angle += j / 5.0f;
+                    Vector2 shootDirection = new Vector2(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
+                    projectile.GetComponent<EnemyProjectileController>().Initialize(stats.ProjectileSpeed, shootDirection, stats.ProjectileDamage);
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
 
             yield return new WaitForSeconds(stats.ShootInterval);
         }

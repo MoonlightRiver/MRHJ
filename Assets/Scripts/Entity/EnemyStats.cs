@@ -11,12 +11,14 @@ public class EnemyStats : BaseEntityStats
     public float initialProjectileSpeed;
     public float initialProjectileLifetime;
 
-    public float MoveSpeed { get; set; }
-    public float MoveInterval { get; set; }
-    public float ShootInterval { get; set; }
-    public int ProjectileDamage { get; set; }
-    public float ProjectileSpeed { get; set; }
-    public float ProjectileLifetime { get; set; }
+    public float MoveSpeed { get; protected set; }
+    public float MoveInterval { get; protected set; }
+    public float ShootInterval { get; protected set; }
+    public int ProjectileDamage { get; protected set; }
+    public float ProjectileSpeed { get; protected set; }
+    public float ProjectileLifetime { get; protected set; }
+    public int ShootBurstNum { get; protected set; }
+    public int ShootLineNum { get; protected set; }
 
     protected override void Start()
     {
@@ -28,6 +30,8 @@ public class EnemyStats : BaseEntityStats
         ProjectileDamage = initialProjectileDamage;
         ProjectileSpeed = initialProjectileSpeed;
         ProjectileLifetime = initialProjectileLifetime;
+        ShootBurstNum = 1;
+        ShootLineNum = 1;
 
         WaveReinforce();
     }
@@ -41,24 +45,45 @@ public class EnemyStats : BaseEntityStats
             case 2:
                 MaxHealth = 125;
                 Health = 125;
+                ShootBurstNum = 3;
                 break;
 
             case 3:
                 MaxHealth = 150;
                 Health = 150;
                 ProjectileDamage = 33;
+                ShootBurstNum = 3;
+                ShootLineNum = 3;
                 break;
 
             case 4:
                 MaxHealth = 175;
                 Health = 175;
                 ProjectileDamage = 33;
+                if (Random.Range(1, 3) == 1)
+                {
+                    ShootBurstNum = 3;
+                    ShootLineNum = 3;
+                }
+                else
+                {
+                    ShootBurstNum = 7;
+                }
                 break;
 
             case 5:
                 MaxHealth = 200;
                 Health = 200;
                 ProjectileDamage = 40;
+                if (Random.Range(1, 3) == 1)
+                {
+                    ShootBurstNum = 3;
+                    ShootLineNum = 5;
+                }
+                else
+                {
+                    ShootBurstNum = 9;
+                }
                 break;
         }
     }
