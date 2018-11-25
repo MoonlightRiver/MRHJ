@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88c1da076020574e8804afc883018d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
+    type: 2}
   despawnDistance: 10
   despawnAfter: 30
 --- !u!114 &114676400439469034
@@ -210,8 +212,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 0}
-  initialMaxHealth: 100
+  initialMaxHealth: 0
   hitCountText: {fileID: 114003413430267338}
+  initialProjectileDamage: 25
+  initialProjectileSpeed: 5
+  initialProjectileLifetime: 2
 --- !u!212 &212500712826174220
 SpriteRenderer:
   m_ObjectHideFlags: 1
