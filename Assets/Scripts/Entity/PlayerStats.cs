@@ -87,6 +87,7 @@ public class PlayerStats : BaseEntityStats
         {
             InitialPlayerStats.Type = PlayerType.House;
         }
+        Debug.Log("Player Type: " + InitialPlayerStats.Type);
 
         MaxHealth = InitialPlayerStats.MaxHealth;
         Health = InitialPlayerStats.MaxHealth;

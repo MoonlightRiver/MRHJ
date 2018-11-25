@@ -5,13 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameStartManager : MonoBehaviour
 {
-    void Start()
+    public void OnSelectButtonClick(string typeName)
     {
-        InitialPlayerStats.Type = PlayerType.House;
-    }
-
-    public void OnClick()
-    {
+        PlayerType type = (PlayerType)System.Enum.Parse(typeof(PlayerType), typeName);
+        InitialPlayerStats.Type = type;
         SceneManager.LoadScene("Play Field");
     }
 }
