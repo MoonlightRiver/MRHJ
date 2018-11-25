@@ -12,7 +12,6 @@ public class BorderController : MonoBehaviour {
         }
         else if (col.gameObject.tag == "Player Projectile")
         {
-
             Destroy(col.gameObject);
         }
     }
