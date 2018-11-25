@@ -58,6 +58,7 @@ public class PlayerController : BaseEntityController
     {
         if (stats.Health <= 0)
         {
+            PlayerPrefs.SetInt("Score", gameManager.Score);
             //SceneManager.LoadScene("Game Over");
         }
 

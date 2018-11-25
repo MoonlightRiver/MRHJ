@@ -9,17 +9,14 @@ public class FoodController : BaseEntityController
     public float despawnDistance;
     public float despawnAfter;
 
-    private GameManager gameManager;
-    private Rigidbody2D playerRb2d;
     private FoodStats stats;
+    private Rigidbody2D playerRb2d;
 
     protected override void Start()
     {
         base.Start();
 
         stats = GetComponent<FoodStats>();
-
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
         StartCoroutine(Shoot());

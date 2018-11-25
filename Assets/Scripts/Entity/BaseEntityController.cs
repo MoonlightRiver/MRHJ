@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public abstract class BaseEntityController : MonoBehaviour
 {
+    protected GameManager gameManager;
     protected Rigidbody2D rb2d;
     private RectTransform canvasRectTransform;
 
     protected virtual void Start()
     {
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         rb2d = GetComponent<Rigidbody2D>();
         canvasRectTransform = GetComponentInChildren<RectTransform>();
     }

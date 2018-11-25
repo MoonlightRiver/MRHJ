@@ -9,7 +9,6 @@ public class EnemyController : BaseEntityController
 
     public float despawnDistance;
 
-    protected GameManager gameManager;
     protected EnemyStats stats;
     protected Rigidbody2D playerRb2d;
     protected Vector2 moveDirection;
@@ -18,7 +17,6 @@ public class EnemyController : BaseEntityController
     {
         base.Start();
 
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         stats = GetComponent<EnemyStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
