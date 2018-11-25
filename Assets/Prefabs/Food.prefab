@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 222541396393063222}
   - component: {fileID: 114003413430267338}
   m_Layer: 0
-  m_Name: Health Text
+  m_Name: Hit Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Health Text
+  m_Text: Hit Count Text
 --- !u!114 &114128919289702010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnDistance: 10
+  despawnAfter: 30
 --- !u!114 &114676400439469034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,8 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d679df6cb940a94195ed864b09813a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 114003413430267338}
+  healthText: {fileID: 0}
   initialMaxHealth: 100
+  hitCountText: {fileID: 114003413430267338}
 --- !u!212 &212500712826174220
 SpriteRenderer:
   m_ObjectHideFlags: 1

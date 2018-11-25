@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MiniBossController : EnemyController
 {
+    // Can be edited to produce behaviors different from enemy
     //protected override IEnumerator DecideMoveDirection()
-        // Can be edited to produce behaviors different from enemy
 
+    // Can be edited to produce behaviors different from enemy
     //protected override IEnumerator ShootPlayer()
-        // Can be edited to produce behaviors different from enemy
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FoodController : BaseEntityController
 {
     public float despawnDistance;
+    public float despawnAfter;
 
     private GameManager gameManager;
     private Rigidbody2D playerRb2d;
@@ -18,11 +19,13 @@ public class FoodController : BaseEntityController
 
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+
+        Destroy(gameObject, despawnAfter);
     }
 
     void Update()
     {
-        if (stats.Health <= 0)
+        if (stats.HitCount >= 10)
         {
             Destroy(gameObject);
         }
@@ -37,7 +40,7 @@ public class FoodController : BaseEntityController
     {
         if (col.gameObject.tag == "Player Projectile")
         {
-            stats.Health -= 10;
+            stats.HitCount++;
             gameManager.Score += 30;
         }
     }

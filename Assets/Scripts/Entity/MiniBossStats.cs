@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MiniBossStats : EnemyStats
 {
+    // Can be edited to produce behaviors different from enemy
     protected override void WaveReinforce()
     {
-        // Can be edited to produce behaviors different from enemy
         int wave = GameObject.FindWithTag("GameController").GetComponent<GameManager>().Wave;
 
         switch (wave)
