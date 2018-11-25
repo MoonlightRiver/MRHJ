@@ -16,14 +16,6 @@ public class PlayerStats : BaseEntityStats
     public Image[] subpanelBuffImage;
     public Sprite knob;
 
-    public float initialMoveSpeed;
-    public float initialShootInterval;
-    public int initialProjectileDamage;
-    public float initialProjectileSpeed;
-    public float initialProjectileLifetime;
-    public float initialJumpDuration;
-    public float initialJumpCooldown;
-
     private float baseMoveSpeed;
     private float baseShootInterval;
     private int baseProjectileDamage;
@@ -91,15 +83,21 @@ public class PlayerStats : BaseEntityStats
 
     protected override void Start()
     {
-        base.Start();
+        if (InitialPlayerStats.Type == null)
+        {
+            InitialPlayerStats.Type = PlayerType.House;
+        }
 
-        baseMoveSpeed = initialMoveSpeed;
-        baseShootInterval = initialShootInterval;
-        baseProjectileDamage = initialProjectileDamage;
-        baseProjectileSpeed = initialProjectileSpeed;
-        baseProjectileLifetime = initialProjectileLifetime;
-        baseJumpDuration = initialJumpDuration;
-        baseJumpCooldown = initialJumpCooldown;
+        MaxHealth = InitialPlayerStats.MaxHealth;
+        Health = InitialPlayerStats.MaxHealth;
+
+        baseMoveSpeed = InitialPlayerStats.MoveSpeed;
+        baseShootInterval = InitialPlayerStats.ShootInterval;
+        baseProjectileDamage = InitialPlayerStats.ProjectileDamage;
+        baseProjectileSpeed = InitialPlayerStats.ProjectileSpeed;
+        baseProjectileLifetime = InitialPlayerStats.ProjectileLifetime;
+        baseJumpDuration = InitialPlayerStats.JumpDuration;
+        baseJumpCooldown = InitialPlayerStats.JumpCooldown;
 
         buffMoveSpeed = 0;
         buffShootInterval = 0;
@@ -137,7 +135,7 @@ public class PlayerStats : BaseEntityStats
                 break;
 
             case BasicItemType.MoveSpeedIncrease:
-                if (baseMoveSpeed < initialMoveSpeed + 20 * 5)
+                if (baseMoveSpeed < InitialPlayerStats.MoveSpeed + 20 * 5)
                 {
                     baseMoveSpeed += 5;
                 }
@@ -145,7 +143,7 @@ public class PlayerStats : BaseEntityStats
                 break;
 
             case BasicItemType.ShootIntervalDecrease:
-                if (baseShootInterval > initialShootInterval - 6 * 0.05f)
+                if (baseShootInterval > InitialPlayerStats.ShootInterval - 6 * 0.05f)
                 {
                     baseShootInterval -= 0.05f;
                 }
