@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PortalController : MonoBehaviour
 {
-
     protected Rigidbody2D rb2d;
     private float timeElapsed;
+
+    public GameObject player;
+    public Transform Destination;
 
     void Start()
     {
@@ -16,6 +18,14 @@ public class PortalController : MonoBehaviour
     void Update()
     {
         Rotate();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject == player)
+        {
+            player.transform.position = Destination.transform.position;
+        }
     }
 
     private void Rotate()
