@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : BaseEntityController
 {
@@ -57,7 +58,7 @@ public class PlayerController : BaseEntityController
     {
         if (stats.Health <= 0)
         {
-            // Game over
+            //SceneManager.LoadScene("Game Over");
         }
 
         MoveAndRotate();
