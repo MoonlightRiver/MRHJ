@@ -76,6 +76,7 @@ public class PlayerStats : BaseEntityStats
             return baseJumpCooldown + buffJumpCooldown;
         }
     }
+    public int ShootLineNum { get; private set; }
 
     private List<BuffItemController> buffs;
     private List<int> buffRemainingTimes;
@@ -107,6 +108,8 @@ public class PlayerStats : BaseEntityStats
         buffProjectileLifetime = 0;
         buffJumpDuration = 0;
         buffJumpCooldown = 0;
+
+        ShootLineNum = InitialPlayerStats.ShootLineNum;
 
         buffs = new List<BuffItemController>();
         buffRemainingTimes = new List<int>();

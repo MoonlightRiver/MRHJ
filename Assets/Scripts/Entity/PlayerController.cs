@@ -129,14 +129,18 @@ public class PlayerController : BaseEntityController
             {
                 shootElapsed = 0;
 
-                GameObject projectile = Instantiate(projectilePrefab, rb2d.position, Quaternion.identity);
-                Destroy(projectile, stats.ProjectileLifetime);
-
                 float cameraDistance = mainCamera.transform.position.z - gameObject.transform.position.z;
                 Vector2 mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraDistance));
                 Vector2 mouseDirection = mousePosition - rb2d.position;
+                Vector2 orthogonalDirection = new Vector2(mouseDirection.y, -mouseDirection.x);
 
-                projectile.GetComponent<PlayerProjectileController>().Initialize(stats.ProjectileSpeed, mouseDirection, stats.ProjectileDamage);
+                for (int i = -(stats.ShootLineNum / 2); i <= stats.ShootLineNum / 2; i++)
+                {
+                    Vector2 instantiatePosition = rb2d.position + i / 5f * orthogonalDirection.normalized;
+                    GameObject projectile = Instantiate(projectilePrefab, instantiatePosition, Quaternion.identity);
+                    Destroy(projectile, stats.ProjectileLifetime);
+                    projectile.GetComponent<PlayerProjectileController>().Initialize(stats.ProjectileSpeed, mouseDirection, stats.ProjectileDamage);
+                }
             }
         }
     }

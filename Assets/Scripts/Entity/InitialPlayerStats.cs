@@ -8,14 +8,15 @@ public static class InitialPlayerStats
 {
     private static PlayerType? _type;
 
-    public static int MaxHealth { get; set; }
-    public static float MoveSpeed { get; set; }
-    public static float ShootInterval { get; set; }
-    public static int ProjectileDamage { get; set; }
-    public static float ProjectileSpeed { get; set; }
-    public static float ProjectileLifetime { get; set; }
-    public static float JumpDuration { get; set; }
-    public static float JumpCooldown { get; set; }
+    public static int MaxHealth { get; private set; }
+    public static float MoveSpeed { get; private set; }
+    public static float ShootInterval { get; private set; }
+    public static int ProjectileDamage { get; private set; }
+    public static float ProjectileSpeed { get; private set; }
+    public static float ProjectileLifetime { get; private set; }
+    public static float JumpDuration { get; private set; }
+    public static float JumpCooldown { get; private set; }
+    public static int ShootLineNum { get; private set; }
     public static PlayerType? Type {
         get {
             return _type;
@@ -31,6 +32,7 @@ public static class InitialPlayerStats
             ProjectileLifetime = 2;
             JumpDuration = 1;
             JumpCooldown = 20;
+            ShootLineNum = 1;
 
             switch (Type)
             {
@@ -48,7 +50,7 @@ public static class InitialPlayerStats
 
                 case PlayerType.Lab1:
                     ProjectileDamage /= 3;
-                    // shoot 3 lines
+                    ShootLineNum = 3;
                     break;
 
                 case PlayerType.Lab2:
