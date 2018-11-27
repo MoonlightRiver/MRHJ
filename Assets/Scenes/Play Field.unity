@@ -4085,6 +4085,29 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1022473600}
   m_CullTransparentMesh: 0
+--- !u!1 &1055514607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1063134964}
+--- !u!95 &1055514613
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1055514607}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28ca510b5c12db248864dd5656ace6ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1063134964
 Prefab:
   m_ObjectHideFlags: 0
@@ -4126,11 +4149,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4849345898784236, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4849345898784236, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_Name
@@ -4140,6 +4163,11 @@ Prefab:
         type: 2}
       propertyPath: initialMaxHealth
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 58753256836540072, guid: 6e467683fa008bc4885971756b3140dd,
+        type: 2}
+      propertyPath: m_Radius
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
@@ -6410,6 +6438,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfaf1be18b17f174d8182e6e5ce8e942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1502750322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1732973698}
+--- !u!95 &1502750328
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1502750322}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78b656a91078f6f49adacce12b4a7275, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1520034203
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,15 +6985,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4849345898784236, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4849345898784236, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1418079739879050, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
       propertyPath: m_Name
       value: MiniBoss 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 58753256836540072, guid: 6e467683fa008bc4885971756b3140dd,
+        type: 2}
+      propertyPath: m_Radius
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
