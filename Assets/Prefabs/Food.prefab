@@ -182,6 +182,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1217133277649850, guid: 7a60702811d3216499546ece9f5454aa,
     type: 2}
+  sprites:
+  - {fileID: 21300000, guid: 1016115837ba2d14997cd6da9821e92e, type: 3}
+  - {fileID: 21300000, guid: db056d335fc8a0944a3cf9ae48ed285d, type: 3}
+  - {fileID: 21300000, guid: e84e1f0ab2ebc8a4981ce3d9a4096cd9, type: 3}
+  - {fileID: 21300000, guid: 33aa0a4b9ded1a6409ad0b8cf57ec0a7, type: 3}
   despawnDistance: 10
   despawnAfter: 30
 --- !u!114 &114676400439469034
@@ -252,7 +257,7 @@ SpriteRenderer:
   m_SortingLayerID: -469704047
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 912ebf421028e4d46a9c77abfcdd9e2c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -260,7 +265,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &222541396393063222

@@ -11,6 +11,7 @@ TagManager:
   - Basic Item
   - Buff Item
   - Portal
+  - Wall
   layers:
   - Default
   - TransparentFX

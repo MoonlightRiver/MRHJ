@@ -161,13 +161,13 @@ public class PlayerController : BaseEntityController
         {
             if (!IsJumping)
             {
-                stats.Health -= 20;
+                stats.Health -= 5;
             }
             else
             {
                 Debug.Log("회피 성공.");
             }
-            Destroy(col.gameObject);
+            //Destroy(col.gameObject);
         }
     }
 
