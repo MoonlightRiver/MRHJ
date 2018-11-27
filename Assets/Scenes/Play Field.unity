@@ -3208,6 +3208,11 @@ Prefab:
       propertyPath: m_Name
       value: MiniBoss 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114611562593728004, guid: 6e467683fa008bc4885971756b3140dd,
+        type: 2}
+      propertyPath: initialMaxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e467683fa008bc4885971756b3140dd, type: 2}
   m_IsPrefabAsset: 0
@@ -5237,13 +5242,6 @@ MonoBehaviour:
   - {fileID: 1379486685}
   - {fileID: 1300477602}
   knob: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  initialMoveSpeed: 200
-  initialShootInterval: 0.5
-  initialProjectileDamage: 60
-  initialProjectileSpeed: 9
-  initialProjectileLifetime: 2
-  initialJumpDuration: 1
-  initialJumpCooldown: 20
 --- !u!95 &1520034210
 Animator:
   serializedVersion: 3
