@@ -9,6 +9,7 @@ public class PlayerController : BaseEntityController
     public GameObject projectilePrefab;
     public Text jumpText;
     public Text panelJumpText;
+    public GameObject debugModeText;
 
     private bool _isJumping;
     public bool IsJumping {
@@ -38,6 +39,7 @@ public class PlayerController : BaseEntityController
     private float shootElapsed;
     private float jumpElapsed;
     private bool isMoving;
+    private bool isDebugMode;
 
     protected override void Start()
     {
@@ -52,14 +54,22 @@ public class PlayerController : BaseEntityController
         shootElapsed = 0;
         jumpElapsed = float.PositiveInfinity;
         isMoving = false;
+        isDebugMode = false;
     }
 
     void Update()
     {
-        if (stats.Health <= 0)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            isDebugMode = !isDebugMode;
+            Debug.Log("Debug Mode: " + isDebugMode);
+            debugModeText.SetActive(isDebugMode);
+        }
+
+        if (stats.Health <= 0 && !isDebugMode)
         {
             PlayerPrefs.SetInt("Score", gameManager.Score);
-            //SceneManager.LoadScene("Game Over");
+            SceneManager.LoadScene("Game Over");
         }
 
         MoveAndRotate();
