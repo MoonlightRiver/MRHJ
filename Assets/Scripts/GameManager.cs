@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject foodPrefab;
     public GameObject miniBossPrefab;
     public GameObject redzonePrefab;
+    public GameObject bossPortal;
     public Text timeText;
     public Text scoreText;
     public Text waveText;
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(UpdateTime());
         StartCoroutine(SpawnEnemy());
-        StartCoroutine(SpawnMiniBoss());
+        //StartCoroutine(SpawnMiniBoss());
         StartCoroutine(SpawnFood());
         StartCoroutine(CreateRedzone());
     }
@@ -78,6 +79,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         playerPosition = playerRb2d.position;
+
+        if (TimeSeconds >= 120)
+        {
+            bossPortal.SetActive(true);
+        }
     }
 
     private IEnumerator UpdateTime()
@@ -123,7 +129,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnMiniBoss()
+    /*private IEnumerator SpawnMiniBoss()
     {
         while (true)
         {
@@ -137,7 +143,7 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(miniBossSpawnInterval);
         }
-    }
+    }*/
 
     private IEnumerator CreateRedzone()
     {
