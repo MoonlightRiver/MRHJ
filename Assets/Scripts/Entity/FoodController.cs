@@ -6,8 +6,11 @@ public class FoodController : BaseEntityController
 {
     public GameObject projectilePrefab;
 
+    public Sprite[] sprites;
+
     public float despawnDistance;
     public float despawnAfter;
+    private int Type;
 
     private FoodStats stats;
     private Rigidbody2D playerRb2d;
@@ -15,6 +18,9 @@ public class FoodController : BaseEntityController
     protected override void Start()
     {
         base.Start();
+
+        Type = Random.Range(0, 4);
+        GetComponent<SpriteRenderer>().sprite = sprites[Type];
 
         stats = GetComponent<FoodStats>();
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
@@ -42,7 +48,23 @@ public class FoodController : BaseEntityController
         if (col.gameObject.tag == "Player Projectile")
         {
             stats.HitCount++;
-            gameManager.Score += 30;
+            switch (Type) {
+                case 0:
+                    gameManager.Score += 20;
+                    break;
+                case 1:
+                    gameManager.Score += 15;
+                    break;
+                case 2:
+                    gameManager.Score += 30;
+                    break;
+                case 3:
+                    gameManager.Score += 25;
+                    break;
+                default:
+                    gameManager.Score += 10;
+                    break;
+            }
         }
     }
 
