@@ -81,6 +81,8 @@ public class PlayerStats : BaseEntityStats
     private List<BuffItemController> buffs;
     private List<int> buffRemainingTimes;
     private List<Coroutine> buffRemoveCoroutines;
+    private GameManager gameManager;
+    private int originalBaseProjectileDamage;
 
     protected override void Start()
     {
@@ -114,9 +116,24 @@ public class PlayerStats : BaseEntityStats
         buffs = new List<BuffItemController>();
         buffRemainingTimes = new List<int>();
         buffRemoveCoroutines = new List<Coroutine>();
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        originalBaseProjectileDamage = baseProjectileDamage;
 
         UpdatePanelStats();
         UpdatePanelBuffs();
+    }
+
+    void Update()
+    {
+        if (gameManager.IsDebugMode)
+        {
+            baseProjectileDamage = 500;
+        }
+        else
+        {
+            baseProjectileDamage = originalBaseProjectileDamage;
+        }
+        UpdatePanelStats();
     }
 
     public void ApplyBasicItemEffect(BasicItemController basicItem)
@@ -156,6 +173,7 @@ public class PlayerStats : BaseEntityStats
 
             case BasicItemType.ProjectileDamageIncrease:
                 baseProjectileDamage += 15;
+                originalBaseProjectileDamage = baseProjectileDamage;
                 Debug.Log("BasicItem ProjectileDamageIncrease: -> " + baseProjectileDamage);
                 break;
 

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Text timeText;
     public Text scoreText;
     public Text waveText;
+    public GameObject debugModeText;
 
     public int timeScorePerSecond;
     public int waveIncreaseInterval;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     private int _timeSeconds;
     private int _score;
     private int _wave;
+    private bool _isDebugMode;
 
     public int TimeSeconds {
         get {
@@ -57,6 +59,15 @@ public class GameManager : MonoBehaviour
             waveText.text = "Wave " + Wave.ToString();
         }
     }
+    public bool IsDebugMode {
+        get {
+            return _isDebugMode;
+        }
+        set {
+            _isDebugMode = value;
+            debugModeText.SetActive(IsDebugMode);
+        }
+    }
 
     private Rigidbody2D playerRb2d;
     private Vector2 playerPosition;
@@ -66,6 +77,7 @@ public class GameManager : MonoBehaviour
         TimeSeconds = 0;
         Score = 0;
         Wave = 1;
+        IsDebugMode = false;
 
         playerRb2d = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
 
@@ -79,6 +91,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         playerPosition = playerRb2d.position;
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            IsDebugMode = !IsDebugMode;
+            Debug.Log("Debug Mode: " + IsDebugMode);
+        }
 
         if (TimeSeconds >= 120)
         {

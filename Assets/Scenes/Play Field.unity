@@ -6447,7 +6447,6 @@ MonoBehaviour:
     type: 2}
   jumpText: {fileID: 1585284307}
   panelJumpText: {fileID: 424671852}
-  debugModeText: {fileID: 720459097}
 --- !u!58 &1520034205
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7695,10 +7694,11 @@ MonoBehaviour:
     type: 2}
   redzonePrefab: {fileID: 1010435434162748, guid: aa4154fe83a77dd48911a7d0513254f1,
     type: 2}
-  bossPortal: {fileID: 0}
+  bossPortal: {fileID: 1999565282}
   timeText: {fileID: 1129103742}
   scoreText: {fileID: 41205461}
   waveText: {fileID: 555212035}
+  debugModeText: {fileID: 720459097}
   timeScorePerSecond: 10
   waveIncreaseInterval: 120
   spawnRadiusFrom: 2.5
