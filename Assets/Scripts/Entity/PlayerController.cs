@@ -58,7 +58,8 @@ public class PlayerController : BaseEntityController
     {
         if (stats.Health <= 0 && !gameManager.IsDebugMode)
         {
-            Invoke("GameOver", 3);
+            animator.SetTrigger("playerDeath");
+            Invoke("GameOver", 1.5f);
         }
 
         MoveAndRotate();
