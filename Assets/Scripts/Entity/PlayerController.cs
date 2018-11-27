@@ -47,10 +47,10 @@ public class PlayerController : BaseEntityController
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
 
-        IsJumping = false;
+        IsJumping = true;
 
         shootElapsed = 0;
-        jumpElapsed = float.PositiveInfinity;
+        jumpElapsed = stats.JumpCooldown - 3f;
         isMoving = false;
     }
 
