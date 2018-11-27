@@ -58,8 +58,7 @@ public class PlayerController : BaseEntityController
     {
         if (stats.Health <= 0 && !gameManager.IsDebugMode)
         {
-            PlayerPrefs.SetInt("Score", gameManager.Score);
-            SceneManager.LoadScene("Game Over");
+            Invoke("GameOver", 3);
         }
 
         MoveAndRotate();
@@ -188,5 +187,11 @@ public class PlayerController : BaseEntityController
         {
             stats.Health = 0; //Instant death
         }
+    }
+
+    private void GameOver()
+    {
+        PlayerPrefs.SetInt("Score", gameManager.Score);
+        SceneManager.LoadScene("Game Over");
     }
 }
